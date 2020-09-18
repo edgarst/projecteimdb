@@ -55,7 +55,6 @@
                 $uploadOk = 0;
             }
         }
-    //GKANGKJANSF
         // Comprovar si el fitxer ja existeix
         if (file_exists($file)) {
             $img_error = "El fitxer ja existeix.";
