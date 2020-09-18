@@ -1,9 +1,10 @@
 <?php include("header.php"); ?>
+<?php require_once("../include/connection_db.php"); ?>
 <link rel="stylesheet" href="../css/style.css"> 
 
 <?php 
     try{
-        $sql = $connect->prepare('SELECT nom FROM plataforma');
+        $sql = $connect->prepare('SELECT * FROM plataforma');
         $sql->execute(array());
         $result = $sql->fetchAll();
     
@@ -21,19 +22,15 @@
     <h4>Afegir nova pel·lícula</h4>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
         <input class="movie-data" type="text" name="title" placeholder="Títol">
-        <span class="error"></span>
+        <span class="error">* <?php echo $title_error; ?></span>
         <textarea class="movie-data" name="sinopsis" cols="30" rows="5" placeholder="Sinopsis"></textarea>
         <p>Publicació:</p>
         <input class="movie-data" type="date" name="published">
         <input class="movie-data" type="number" name="valoracio" placeholder="Valoració">
-        <input class="movie-data" type="text" name="plataforma" placeholder="Plataforma Streaming">
         <select class="movie-data" name="plataforma">
             <?php for ($i=0; $i < count($plataforma); $i++) { ?>
                 <option value="<?php echo $plataforma[$i] ?>"> <?php echo $plataforma[$i] ?></option>
             <?php } ?>
-            <!-- <option value="netflix">Netflix</option>
-            <option value="hbo">HBO</option>
-            <option value="other">Altres</option> -->
         </select>
         <p>Caràtula:</p>
         <input class="movie-data" type="file" name="caratula">
@@ -42,11 +39,11 @@
 </section>
 
 <?php
+    $title_error = $img_error = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Comprovació imatge
         $img_folder = "./content/img/";
         $file = $img_folder . basename($_FILES["caratula"]["name"]);
-        $img_error = "";
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($file,PATHINFO_EXTENSION));
     
