@@ -28,7 +28,7 @@ header a, header a:visited{
     display: inline-block;
 }
 
-    /* Barra de búsqueda */
+    /* Search bar */
 #buscador{
     padding: 5px;
     border: none;
@@ -37,13 +37,13 @@ header a, header a:visited{
     width: 300px;
 }
 
-    /* Botó per cercar */
+    /* Search button */
 #cerca{
     padding: 5px;
     cursor: pointer;
 }
 
-    /* Link afegir nova peli */
+    /* Add film link */
 #afegir-pelis{
     padding: 5px;
     margin-left: 10px;
@@ -63,7 +63,7 @@ header a, header a:visited{
 
 /* addMovie.php */
 
-    /* Formulari */
+    /* Form */
 .form-movie *{
     box-sizing: border-box;
 }
@@ -81,13 +81,13 @@ header a, header a:visited{
     box-shadow: 7px 13px 37px #000;
 }
 
-    /* Títol del formulari */
+    /* Form title */
 .form-movie h4 {
     font-size: 22px;
     margin-bottom: 20px;
 }
 
-    /* Inputs del formulari */
+    /* Form inputs */
 .movie-data {
     width: 100%;
     background: #24303c;
@@ -105,7 +105,7 @@ header a, header a:visited{
     margin-left: -10px;
 }
 
-    /* Botó del formulari */
+    /* Form button */
 .form-movie button {
     width: 100%;
     background: #1f53c5;
@@ -117,9 +117,19 @@ header a, header a:visited{
     cursor: pointer;
 }
 
-    /* Text del formulari */
+    /* Form text */
 .form-movie p {
     height: 40px;
     font-size: 18px;
     line-height: 40px;
+}
+
+    /* Form image text */
+#caratula-text{
+    margin-top: -12px;
+}
+
+    /* Form required fields */
+.error{
+    color: red;
 }
