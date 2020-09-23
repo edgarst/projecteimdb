@@ -5,20 +5,7 @@
 
 <?php 
     // Stream platform query
-    try{
-        $sql = $connect->prepare('SELECT * FROM plataforma');
-        $sql->execute(array());
-        $result = $sql->fetchAll();
     
-        $i = 0;
-        foreach ($result as $row) {
-            $plataforma[$i] = $row["nom"];
-            $i++;
-        }
-    }catch(PDOException $e){
-        echo "ERROR: " . $e->getMessage();
-    }
-
     // Check for errors
     $title_error = $sinopsis_error = $img_error = "";
     function empty_title($title){
