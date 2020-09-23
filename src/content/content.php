@@ -1,7 +1,7 @@
-<?php require("./include/connection_db.php"); ?>
-
-<?php 
+<?php namespace MyApp\content;
+use MyApp\includes\Connection_db as connection;
     try{
+        $connect = connection::connect();
         $sql = $connect->prepare('SELECT * FROM pelicula');
         $sql->execute(array());
         $result = $sql->fetchAll();

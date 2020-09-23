@@ -14,5 +14,5 @@
                 <button id="cerca" type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
-        <a id="afegir-pelis" href="http://localhost/imdb/content/addMovie.php">Afegir pel·lícula</a>
+        <a id="afegir-pelis" href="http://localhost/imdb/src/content/addMovie.php">Afegir pel·lícula</a>
     </header>
