@@ -1,15 +1,12 @@
 <?php namespace MyApp\content;
-use MyApp\includes\Connection_db as connection;
-use MyApp\includes\Image as image;
-use MyApp\includes\PlatformDB as platform;
-// include("../includes/platformDB.php");
+use MyApp\includes\PlatformDB;
 // include("header.php"); 
 ?>
 <link rel="stylesheet" href="../css/style.css"> 
 
 <?php 
     // Streaming platform query
-    $platformDB = new platform();
+    $platformDB = new PlatformDB();
     $plataforma = $platformDB->getPlatforms();
 
     // Check for errors

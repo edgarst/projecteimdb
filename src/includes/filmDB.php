@@ -1,10 +1,10 @@
-<?php namespace MyApp\includes;
-use MyApp\includes\Connection_db as connection;
+<?php 
+require("connection_db.php");
 class FilmDB{
     private $connect;
 
     public function __construct(){
-        $this->connect = connection::connect();
+        $this->connect = Connection_db::connect();
     }
 
     function searchFilm($title){

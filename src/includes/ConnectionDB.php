@@ -1,7 +1,7 @@
 <?php namespace MyApp\includes;
 use PDO;
 
-class Connection_db{
+class ConnectionDB{
 
     public static function connect(){
         try{

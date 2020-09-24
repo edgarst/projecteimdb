@@ -4,7 +4,7 @@
 
 <?php 
     require "vendor/autoload.php";
-    require("src/includes/connection_db.php");
+    require("src/includes/connectionDB.php");
     include('src/content/header.php');
     include('src/content/content.php'); 
 ?>

@@ -21,10 +21,9 @@ class ComposerStaticInitada76f893e3fb1e2ddaf17a485890682
     );
 
     public static $classMap = array (
-        'MyApp\\includes\\Connection_db' => __DIR__ . '/../..' . '/src/includes/connection_db.php',
-        'MyApp\\includes\\Film' => __DIR__ . '/../..' . '/src/includes/film.php',
-        'MyApp\\includes\\FilmDB' => __DIR__ . '/../..' . '/src/includes/filmDB.php',
-        'MyApp\\includes\\PlatformDB' => __DIR__ . '/../..' . '/src/includes/platformDB.php',
+        'MyApp\\includes\\ConnectionDB' => __DIR__ . '/../..' . '/src/includes/ConnectionDB.php',
+        'MyApp\\includes\\Image' => __DIR__ . '/../..' . '/src/includes/Image.php',
+        'MyApp\\includes\\PlatformDB' => __DIR__ . '/../..' . '/src/includes/PlatformDB.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

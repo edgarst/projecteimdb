@@ -6,8 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'MyApp\\includes\\Connection_db' => $baseDir . '/src/includes/connection_db.php',
-    'MyApp\\includes\\Film' => $baseDir . '/src/includes/film.php',
-    'MyApp\\includes\\FilmDB' => $baseDir . '/src/includes/filmDB.php',
-    'MyApp\\includes\\PlatformDB' => $baseDir . '/src/includes/platformDB.php',
+    'MyApp\\includes\\ConnectionDB' => $baseDir . '/src/includes/ConnectionDB.php',
+    'MyApp\\includes\\Image' => $baseDir . '/src/includes/Image.php',
+    'MyApp\\includes\\PlatformDB' => $baseDir . '/src/includes/PlatformDB.php',
 );

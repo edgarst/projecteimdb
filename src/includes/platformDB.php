@@ -1,11 +1,10 @@
 <?php namespace MyApp\includes;
-use MyApp\includes\Connection_db as connection;
-
+use MyApp\includes\connectionDB;
 class PlatformDB {
     private $connect;
 
     public function __construct(){
-        $this->connect = connection::connect();
+        $this->connect = Connection_db::connect();
     }
 
     function getPlatformID($platform){
