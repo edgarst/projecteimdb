@@ -1,15 +1,16 @@
 <?php namespace MyApp\content;
 use MyApp\includes\Connection_db as connection;
 use MyApp\includes\Image as image;
-use MyApp\includes\Platform_db as platform;
+use MyApp\includes\PlatformDB as platform;
+// include("../includes/platformDB.php");
 // include("header.php"); 
 ?>
 <link rel="stylesheet" href="../css/style.css"> 
 
 <?php 
     // Streaming platform query
-    // $platformDB = new PlatformDB();
-    $plataforma = platform::getPlatforms();
+    $platformDB = new platform();
+    $plataforma = $platformDB->getPlatforms();
 
     // Check for errors
     $title_error = $sinopsis_error = $img_error = "";

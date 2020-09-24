@@ -1,14 +1,14 @@
 <?php namespace MyApp\includes;
 use MyApp\includes\Connection_db as connection;
 
-class Platform_db {
+class PlatformDB {
     private $connect;
 
     public function __construct(){
         $this->connect = connection::connect();
     }
 
-    public static function getPlatformID($platform){
+    function getPlatformID($platform){
         $sql = $connect->prepare('SELECT * FROM plataforma WHERE nom LIKE $platform');
         $sql->execute(array());
         $result = $sql->fetchAll();
@@ -17,7 +17,7 @@ class Platform_db {
         return $id;
     }
 
-    public static function getPlatforms(){
+    function getPlatforms(){
         try{
             $sql = $connect->prepare('SELECT * FROM plataforma');
             $sql->execute(array());
