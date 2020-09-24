@@ -4,7 +4,7 @@ class PlatformDB {
     private $connect;
 
     public function __construct(){
-        $this->connect = Connection_db::connect();
+        $this->connect = ConnectionDB::connect();
     }
 
     function getPlatformID($platform){

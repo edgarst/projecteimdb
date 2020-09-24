@@ -1,5 +1,5 @@
 <?php namespace MyApp\content;
-use MyApp\includes\Connection_db as connection;
+use MyApp\includes\ConnectionDB as connection;
     try{
         $connect = connection::connect();
         $sql = $connect->prepare('SELECT * FROM pelicula');
