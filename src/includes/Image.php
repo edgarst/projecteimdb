@@ -1,9 +1,6 @@
 <?php 
-    require("connection_db.php");
-
+require("connection_db.php");
     class Image {
-
-        public function __construct(){}
 
         // Image Comprovation
         function check_image($img){

@@ -1,23 +1,13 @@
-<?php include("header.php"); ?>
-<?php include("../include/image.php"); ?>
-<?php require("../include/connection_db.php"); ?>
+<?php 
+// include("header.html"); 
+
+?>
 <link rel="stylesheet" href="../css/style.css"> 
 
 <?php 
-    // Stream platform query
-    try{
-        $sql = $connect->prepare('SELECT * FROM plataforma');
-        $sql->execute(array());
-        $result = $sql->fetchAll();
-    
-        $i = 0;
-        foreach ($result as $row) {
-            $plataforma[$i] = $row["nom"];
-            $i++;
-        }
-    }catch(PDOException $e){
-        echo "ERROR: " . $e->getMessage();
-    }
+    // Streaming platform query
+    $platformDB = new PlatformDB();
+    $plataforma = $platformDB->getPlatforms();
 
     // Check for errors
     $title_error = $sinopsis_error = $img_error = "";
