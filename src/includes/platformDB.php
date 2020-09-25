@@ -28,7 +28,7 @@ class PlatformDB {
                 $i++;
             }
             
-            return plataforma;
+            return $plataforma;
         }catch(PDOException $e){
             echo "ERROR: " . $e->getMessage();
         }

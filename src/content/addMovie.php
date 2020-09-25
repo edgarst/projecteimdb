@@ -1,6 +1,9 @@
-<?php namespace MyApp\content;
-use MyApp\includes\PlatformDB;
+<?php 
+// namespace MyApp\content;
+// use MyApp\includes\PlatformDB;
 // include("header.php"); 
+include("../includes/PlatformDB.php"); 
+
 ?>
 <link rel="stylesheet" href="../css/style.css"> 
 
