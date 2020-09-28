@@ -1,4 +1,5 @@
-<?php 
+<?php namespace MyApp\includes;
+use MyApp\includes\connectionDB as connection;
 class MostrarPelicula{
     private $nom;
     private $data;
@@ -7,7 +8,7 @@ class MostrarPelicula{
     public function __construct(){
         $this->nom = "Vengadores";
         $this->data = 2012;
-        $this->connexio = BaseDades::connect();
+        $this->connexio = connection::connect();
     }
 
     function mostrarDades($id){

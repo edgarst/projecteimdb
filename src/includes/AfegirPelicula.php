@@ -1,4 +1,4 @@
-<?php 
+<?php namespace MyApp\includes;
 class AfegirPelicula{
     // private $title;
     // private $sinopsis;
@@ -11,7 +11,7 @@ class AfegirPelicula{
         $this->sinopsis = $sinopsis;
         $this->valoracio = $valoracio;
         $this->publicacio = $publicacio;
-        $this->connexio = BaseDades::connect();
+        $this->connexio = ConnectionDB::connect();
     }
 
     function add($film){

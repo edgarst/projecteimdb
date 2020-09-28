@@ -21,9 +21,16 @@ class ComposerStaticInitada76f893e3fb1e2ddaf17a485890682
     );
 
     public static $classMap = array (
+        'MyApp\\includes\\AfegirPelicula' => __DIR__ . '/../..' . '/src/includes/AfegirPelicula.php',
         'MyApp\\includes\\ConnectionDB' => __DIR__ . '/../..' . '/src/includes/ConnectionDB.php',
-        'MyApp\\includes\\Image' => __DIR__ . '/../..' . '/src/includes/Image.php',
-        'MyApp\\includes\\PlatformDB' => __DIR__ . '/../..' . '/src/includes/PlatformDB.php',
+        'MyApp\\includes\\EditarPelicula' => __DIR__ . '/../..' . '/src/includes/EditarPelicula.php',
+        'MyApp\\includes\\EliminarPelicula' => __DIR__ . '/../..' . '/src/includes/EliminarPelicula.php',
+        'MyApp\\includes\\Film' => __DIR__ . '/../..' . '/src/includes/film.php',
+        'MyApp\\includes\\FilmDB' => __DIR__ . '/../..' . '/src/includes/filmDB.php',
+        'MyApp\\includes\\Image' => __DIR__ . '/../..' . '/src/includes/image.php',
+        'MyApp\\includes\\MostrarPelicula' => __DIR__ . '/../..' . '/src/includes/MostrarPelicula.php',
+        'MyApp\\includes\\MovieAction' => __DIR__ . '/../..' . '/src/includes/MovieAction.php',
+        'MyApp\\includes\\PlatformDB' => __DIR__ . '/../..' . '/src/includes/platformDB.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

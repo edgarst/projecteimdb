@@ -6,7 +6,14 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'MyApp\\includes\\AfegirPelicula' => $baseDir . '/src/includes/AfegirPelicula.php',
     'MyApp\\includes\\ConnectionDB' => $baseDir . '/src/includes/ConnectionDB.php',
-    'MyApp\\includes\\Image' => $baseDir . '/src/includes/Image.php',
-    'MyApp\\includes\\PlatformDB' => $baseDir . '/src/includes/PlatformDB.php',
+    'MyApp\\includes\\EditarPelicula' => $baseDir . '/src/includes/EditarPelicula.php',
+    'MyApp\\includes\\EliminarPelicula' => $baseDir . '/src/includes/EliminarPelicula.php',
+    'MyApp\\includes\\Film' => $baseDir . '/src/includes/film.php',
+    'MyApp\\includes\\FilmDB' => $baseDir . '/src/includes/filmDB.php',
+    'MyApp\\includes\\Image' => $baseDir . '/src/includes/image.php',
+    'MyApp\\includes\\MostrarPelicula' => $baseDir . '/src/includes/MostrarPelicula.php',
+    'MyApp\\includes\\MovieAction' => $baseDir . '/src/includes/MovieAction.php',
+    'MyApp\\includes\\PlatformDB' => $baseDir . '/src/includes/platformDB.php',
 );

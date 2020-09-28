@@ -1,5 +1,5 @@
 <?php namespace MyApp\includes;
-use MyApp\includes\connectionDB;
+use MyApp\includes\connectionDB as connection;
 
     class Image {
 
