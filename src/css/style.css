@@ -61,7 +61,7 @@ header a, header a:visited{
     width: 100%;
 }
 
-/* addMovie.php */
+/* FormMovie.php */
 
     /* Form */
 .form-movie *{
@@ -132,4 +132,8 @@ header a, header a:visited{
     /* Form required fields */
 .error{
     color: red;
+}
+
+#published-date{
+    margin-top: -12px;
 }

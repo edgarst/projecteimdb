@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 <?php 
+=======
+<?php namespace MyApp\includes;
+use MyApp\includes\connectionDB as connection;
+>>>>>>> feature/Database_Test
 class MostrarPelicula{
     private $nom;
     private $data;
@@ -7,7 +12,11 @@ class MostrarPelicula{
     public function __construct(){
         $this->nom = "Vengadores";
         $this->data = 2012;
+<<<<<<< HEAD
         $this->connexio = BaseDades::connect();
+=======
+        $this->connexio = connection::connect();
+>>>>>>> feature/Database_Test
     }
 
     function mostrarDades($id){

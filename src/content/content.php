@@ -1,6 +1,13 @@
+<<<<<<< HEAD:src/content/content.php
 <?php 
     try{
         $connect = ConnectionDB::connect();
+=======
+<?php namespace MyApp\content;
+use MyApp\includes\ConnectionDB as connection;
+    try{
+        $connect = connection::connect();
+>>>>>>> feature/Database_Test:content/content.php
         $sql = $connect->prepare('SELECT * FROM pelicula');
         $sql->execute(array());
         $result = $sql->fetchAll();

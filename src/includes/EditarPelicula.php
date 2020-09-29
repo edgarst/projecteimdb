@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <?php 
+=======
+<?php namespace MyApp\includes;
+>>>>>>> feature/Database_Test
 class EditarPelicula{
     private $connexio;
 
