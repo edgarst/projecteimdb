@@ -20,6 +20,7 @@ include("header.html");
         <span class="error">*</span>
         <p id="published-date">Publicació:</p>
         <input class="movie-data" type="date" name="published" required>
+        <!-- <input type="text" name="director"> -->
         <input class="movie-data" type="number" name="valoracio" placeholder="Valoració">
         <span class="error">*</span>
         <select class="movie-data" name="plataforma" required>
