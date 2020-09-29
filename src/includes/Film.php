@@ -1,5 +1,5 @@
 <?php namespace MyApp\includes;
-class Film {
+class Film{
     private $title;
     private $sinopsis;
     private $release_date;
@@ -8,15 +8,14 @@ class Film {
     private $img;
 
     public function __construct($title, $sinopsis, $release_date, $rating, $platform, $img){
-        $this -> $title = $title;
-        $this -> $sinopsis = $sinopsis;
-        $this -> $release_date = $release_date;
-        $this -> $rating = $rating;
-        $this -> $platform = $platform;
-        $this -> $img = $img;
+        $this -> title = $title;
+        $this -> sinopsis = $sinopsis;
+        $this -> release_date = $release_date;
+        $this -> rating = $rating;
+        $this -> platform = $platform;
+        $this -> img = $img;
     }
 
-    // Getters
     function getTitle(){
         return $this->title;
     }
