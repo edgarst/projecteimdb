@@ -8,7 +8,7 @@ class PlatformDB {
     }
 
     function getPlatformID($platform){
-        $sql = $connect->prepare('SELECT * FROM plataforma WHERE nom LIKE $platform');
+        $sql = $this->connect->prepare('SELECT * FROM plataforma WHERE nom LIKE $platform');
         $sql->execute(array());
         $result = $sql->fetchAll();
 
@@ -18,7 +18,7 @@ class PlatformDB {
 
     function getPlatforms(){
         try{
-            $sql = $connect->prepare('SELECT * FROM plataforma');
+            $sql = $this->connect->prepare('SELECT * FROM plataforma');
             $sql->execute(array());
             $result = $sql->fetchAll();
         

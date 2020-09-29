@@ -1,9 +1,7 @@
 <?php namespace MyApp\includes;
+use MyApp\includes\connectionDB as connection;
 class AfegirPelicula{
-    // private $title;
-    // private $sinopsis;
-    // private $valoracio;
-    // private $publicacio;
+    private $film;
     private $connexio;
 
     public function __construct($title, $sinopsis, $valoracio, $publicacio){

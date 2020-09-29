@@ -57,8 +57,36 @@ header a, header a:visited{
 
 
 /* content.php */
-.caratula{
+.row *{
+    box-sizing: border-box;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
+}
+
+.film-card{
+    float: left;
+    position: relative;
+    width: 20%;
+    padding: 0 4px;
+}
+
+.film-card img{
+    vertical-align: middle;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.text-img{
+    position: absolute;
+    padding: 20px;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    width: 97%;
 }
 
 /* FormMovie.php */
@@ -69,7 +97,6 @@ header a, header a:visited{
 }
 
 .form-movie{
-    box-sizing: border-box;
     background-color: #24303c;
     color: white;
     width: 400px;

@@ -28,10 +28,6 @@ class MostrarPelicula{
         
 
         return $dades;
-        // return [
-        //     'nom' => $this->nom,
-        //     'data' => $this->data
-        // ];
     }
 
     function getPelicula($id){

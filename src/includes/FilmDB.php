@@ -1,10 +1,11 @@
 <?php namespace MyApp\includes;
-
+use MyApp\includes\connectionDB as connection;
+use MyApp\includes\PlatformDB as platform;
 class FilmDB{
     private $connect;
 
     public function __construct(){
-        $this->connect = Connection_db::connect();
+        $this->connect = connection::connect();
     }
 
     function searchFilm($title){
@@ -23,7 +24,7 @@ class FilmDB{
         $release = date('Y', strtotime($release));
         $img = $film->getImg();
         $platform = $film->getPlatform();
-        $platform = PlatformDB::getPlatformID($platform);
+        $platform = platform::getPlatformID($platform);
 
         $sql = "INSERT INTO pelicula(titol, sinopsis, valoracio, publicacio, plataforma, caratula)
         VALUES ($title, $sinopsis, $rating, $release, $platform, $img)";
@@ -32,6 +33,14 @@ class FilmDB{
         VALUES (?,?,?,?,?,?)");
 
         $insert->execute($title, $sinopsis, $rating, $release, $platform, $img);
+    }
+
+    function getFilms(){
+        $sql = $this->connect->prepare('SELECT * FROM pelicula');
+        $sql->execute(array());
+        $result = $sql->fetchAll();
+
+        return $result;
     }
 }
 ?>

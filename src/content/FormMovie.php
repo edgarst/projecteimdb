@@ -1,15 +1,17 @@
-<?php 
-namespace MyApp\content;
-use MyApp\includes\PlatformDB as platform;
+<?php namespace MyApp\content;
+use MyApp\includes\PlatformDB as platformDB;
 use MyApp\includes\Image as image;
 use MyApp\includes\MovieAction as action;
 use MyApp\includes\ConnectionDB as connection;
-include("header.html"); 
-// include("../includes/PlatformDB.php"); 
+// include("header.html"); 
+    
 ?>
 <link rel="stylesheet" href="../css/style.css"> 
 
-
+<?php 
+    $platform = new platformDB();
+    $platforms = $platform->getPlatforms();
+?>
 <section class="form-movie">
     <h4>Afegir nova pel·lícula</h4>
     <form method="post" action="" enctype="multipart/form-data">
@@ -24,8 +26,8 @@ include("header.html");
         <input class="movie-data" type="number" name="valoracio" placeholder="Valoració">
         <span class="error">*</span>
         <select class="movie-data" name="plataforma" required>
-            <?php for ($i=0; $i < count($plataforma); $i++) { ?>
-                <option value="<?php echo $plataforma[$i] ?>"> <?php echo $plataforma[$i] ?></option>
+            <?php for ($i=0; $i < count($latforms); $i++) { ?>
+                <option value="<?php echo $platforms[$i] ?>"> <?php echo $platforms[$i] ?></option>
             <?php } ?>
         </select>
         <span class="error">*</span>
