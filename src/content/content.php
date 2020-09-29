@@ -1,7 +1,6 @@
-<?php require("./include/connection_db.php"); ?>
-
 <?php 
     try{
+        $connect = ConnectionDB::connect();
         $sql = $connect->prepare('SELECT * FROM pelicula');
         $sql->execute(array());
         $result = $sql->fetchAll();
