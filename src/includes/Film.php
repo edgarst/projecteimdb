@@ -1,4 +1,4 @@
-<?php 
+<?php namespace MyApp\includes;
 class Film {
     private $title;
     private $sinopsis;

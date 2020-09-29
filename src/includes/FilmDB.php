@@ -1,5 +1,5 @@
-<?php 
-require("connection_db.php");
+<?php namespace MyApp\includes;
+
 class FilmDB{
     private $connect;
 
