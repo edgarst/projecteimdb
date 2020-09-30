@@ -6,12 +6,13 @@ use MyApp\includes\ConnectionDB as connection;
 // include("header.html"); 
     
 ?>
-<link rel="stylesheet" href="../css/style.css"> 
+<link rel="stylesheet" href="../css/formMovie.css"> 
 
 <?php 
     $platform = new platformDB();
     $platforms = $platform->getPlatforms();
 ?>
+
 <section class="form-movie">
     <h4>Afegir nova pel·lícula</h4>
     <form method="post" action="" enctype="multipart/form-data">
@@ -26,7 +27,7 @@ use MyApp\includes\ConnectionDB as connection;
         <input class="movie-data" type="number" name="valoracio" placeholder="Valoració">
         <span class="error">*</span>
         <select class="movie-data" name="plataforma" required>
-            <?php for ($i=0; $i < count($latforms); $i++) { ?>
+            <?php for ($i=0; $i < count($platforms); $i++) { ?>
                 <option value="<?php echo $platforms[$i] ?>"> <?php echo $platforms[$i] ?></option>
             <?php } ?>
         </select>

@@ -16,6 +16,15 @@ class PlatformDB {
         return $id;
     }
 
+    function getPlatformURL($platform){
+        $sql = $this->connect->prepare('SELECT * FROM plataforma WHERE nom LIKE $platform');
+        $sql->execute(array());
+        $result = $sql->fetchAll();
+
+        $link = result["url"];
+        return $link;
+    }
+
     function getPlatforms(){
         try{
             $sql = $this->connect->prepare('SELECT * FROM plataforma');
