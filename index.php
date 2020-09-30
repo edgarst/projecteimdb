@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="src/css/style.css">
+<link rel="stylesheet" href="src/css/header.css">
+<link rel="stylesheet" href="src/css/content.css">
+<link rel="stylesheet" href="src/css/formMovie.css">
 
 
 <?php 

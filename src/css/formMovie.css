@@ -1,0 +1,73 @@
+/* Form */
+.form-movie *{
+    box-sizing: border-box;
+}
+
+.form-movie{
+    background-color: #24303c;
+    color: white;
+    width: 400px;
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 4px;
+    font-family: 'calibri';
+    box-shadow: 7px 13px 37px #000;
+}
+
+    /* Form title */
+.form-movie h4 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+    /* Form inputs */
+.movie-data {
+    width: 100%;
+    background: #24303c;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #1f53c5;
+    font-family: 'calibri';
+    font-size: 18px;
+    color: white;
+}
+
+.movie-data[type=file]{
+    border: none;
+    margin-left: -10px;
+}
+
+    /* Form button */
+.form-movie button {
+    width: 100%;
+    background: #1f53c5;
+    border: none;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    /* Form text */
+.form-movie p {
+    height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+}
+
+    /* Form image text */
+#caratula-text{
+    margin-top: -12px;
+}
+
+    /* Form required fields */
+.error{
+    color: red;
+}
+
+#published-date{
+    margin-top: -12px;
+}

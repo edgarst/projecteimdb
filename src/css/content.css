@@ -1,0 +1,38 @@
+.filter{
+    float: left;
+    width: 25%;
+    height: 100%;
+    border: 2px solid red;
+}
+
+/* .row *{
+    box-sizing: border-box;
+} */
+
+.row{
+    float: left;
+    /* flex-wrap: wrap; */
+    width: 75%;
+}
+
+.col{
+    float: left;
+    position: relative;
+    width: 20%;
+    padding: 0 4px;
+}
+
+.col img{
+    vertical-align: middle;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.text-img{
+    position: absolute;
+    padding: 20px;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    width: 95.7%;
+}

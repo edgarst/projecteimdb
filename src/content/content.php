@@ -7,12 +7,16 @@ use MyApp\includes\FilmDB as filmInfo;
     $films = $filmInfo->getFilms();
 ?>
 
+<aside class="filter">
+    <h1>HOLAAAA SÓC EL FILTRE</h1>
+</aside>
+
 <div class="row">
     <?php  for($i=0;$i<count($films);$i++){  ?>
-        <div class="film-card">
+        <div class="col">
             <img src="<?php echo $films[$i]["caratula"]?>"alt="error">
             <div class="text-img">
-                <h4>Vengadores</h4>
+                <h4><?php echo $films[$i]["titol"] ?></h4>
             </div>
         </div>
     <?php  }  ?>
