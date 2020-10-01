@@ -1,30 +1,23 @@
-<<<<<<< HEAD:src/content/content.php
-<?php 
-    try{
-        $connect = ConnectionDB::connect();
-=======
 <?php namespace MyApp\content;
 use MyApp\includes\ConnectionDB as connection;
-    try{
-        $connect = connection::connect();
->>>>>>> feature/Database_Test:content/content.php
-        $sql = $connect->prepare('SELECT * FROM pelicula');
-        $sql->execute(array());
-        $result = $sql->fetchAll();
-    
-        $i = 0;
-        foreach ($result as $row) {
-            $caratula[$i] = $row["caratula"];
-            $i++;
-        }
+use MyApp\includes\ImageDB as filmImage;
+use MyApp\includes\FilmDB as filmInfo;
 
-    }catch(PDOException $e){
-        echo "ERROR: " . $e->getMessage();
-    }
+    $filmInfo = new filmInfo();
+    $films = $filmInfo->getFilms();
 ?>
 
-<div class="caratula">
-    <?php  for($i=0;$i<count($caratula);$i++){  ?>
-        <img src="<?php echo $caratula[$i]?>"alt="error">
+<aside class="filter">
+    <h1>HOLAAAA SÓC EL FILTRE</h1>
+</aside>
+
+<div class="row">
+    <?php  for($i=0;$i<count($films);$i++){  ?>
+        <div class="col">
+            <img src="<?php echo $films[$i]['caratula']?>"alt="error">
+            <div class="text-img">
+                <h4><?php echo $films[$i]['titol'] ?></h4>
+            </div>
+        </div>
     <?php  }  ?>
 </div>

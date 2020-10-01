@@ -1,36 +1,49 @@
 <?php namespace MyApp\includes;
 use MyApp\includes\connectionDB as connection;
-class PlatformDB {
+class PlatformDB 
+{
     private $connect;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->connect = connection::connect();
     }
 
     function getPlatformID($platform){
-        $sql = $connect->prepare('SELECT * FROM plataforma WHERE nom LIKE $platform');
-        $sql->execute(array());
+        $sql = $this->connect->prepare('SELECT id FROM plataforma WHERE nom LIKE :platform');
+        $sql->execute(['platform' => $platform]);
         $result = $sql->fetchAll();
 
-        $id = result["id"];
+        $id = result['id'];
         return $id;
     }
 
-    function getPlatforms(){
+    function getPlatformURL($platform)
+    {
+        $sql = $this->connect->prepare('SELECT url FROM plataforma WHERE nom LIKE :platform');
+        $sql->execute(['platform' => $platform]);
+        $result = $sql->fetchAll();
+
+        $link = result['url'];
+        return $link;
+    }
+
+    function getPlatforms()
+    {
         try{
-            $sql = $connect->prepare('SELECT * FROM plataforma');
+            $sql = $this->connect->prepare('SELECT * FROM plataforma');
             $sql->execute(array());
             $result = $sql->fetchAll();
         
             $i = 0;
             foreach ($result as $row) {
-                $plataforma[$i] = $row["nom"];
+                $plataforma[$i] = $row['nom'];
                 $i++;
             }
             
             return $plataforma;
         }catch(PDOException $e){
-            echo "ERROR: " . $e->getMessage();
+            return "ERROR: {$e->getMessage()}";
         }
     }
 }

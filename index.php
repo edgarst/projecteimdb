@@ -1,19 +1,19 @@
-<link rel="stylesheet" href="src/css/style.css">
+<link rel="stylesheet" href="src/css/header.css">
+<link rel="stylesheet" href="src/css/content.css">
+<link rel="stylesheet" href="src/css/formMovie.css">
 
 
 <?php 
-    $version = "v2.0.0";
-<<<<<<< HEAD
-    require_once("src/includes/ConnectionDB.php");
-    include_once("src/includes/PlatformDB.php");
+    $version = 'v2.1.0';
+    require 'vendor/autoload.php';
+    require('src/includes/ConnectionDB.php');
+    // include('src/content/header.html');
+    // include('src/content/content.php');
 
-    include_once("src/content/header.html");
-    include_once("src/content/content.php");
-    include_once("src/content/addMovie.php");
-=======
-    require "vendor/autoload.php";
-    require("src/includes/connectionDB.php");
-    include("src/content/header.html");
-    include("src/content/content.php");
->>>>>>> feature/Database_Test
+    // include('src/includes/FilmDB.php');
+    use MyApp\includes\FilmDB as film;
+    $film = new film();
+    // echo $film->filmDirectors('Vengadores: Endgame');
+    $infoFilm = $film->searchFilm('Vengadores');
+    echo $infoFilm;
 ?>
