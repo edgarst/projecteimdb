@@ -1,5 +1,6 @@
 <?php namespace MyApp\includes;
-class Film{
+class Film
+{
     private $title;
     private $sinopsis;
     private $release_date;
@@ -7,7 +8,8 @@ class Film{
     private $platform;
     private $img;
 
-    public function __construct($title, $sinopsis, $release_date, $rating, $platform, $img){
+    public function __construct($title, $sinopsis, $release_date, $rating, $platform, $img)
+    {
         $this -> title = $title;
         $this -> sinopsis = $sinopsis;
         $this -> release_date = $release_date;
@@ -16,27 +18,33 @@ class Film{
         $this -> img = $img;
     }
 
-    function getTitle(){
+    function getTitle()
+    {
         return $this->title;
     }
 
-    function getSinopsis(){
+    function getSinopsis()
+    {
         return $this->sinopsis;
     }
 
-    function getRelease(){
+    function getRelease()
+    {
         return $this->release_date;
     }
 
-    function getRating(){
+    function getRating()
+    {
         return $this->rating;
     }
 
-    function getPlatform(){
+    function getPlatform()
+    {
         return $this->platform;
     }
 
-    function getImg(){
+    function getImg()
+    {
         return $this->img;
     }
 }
