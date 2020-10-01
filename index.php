@@ -14,5 +14,6 @@
     use MyApp\includes\FilmDB as film;
     $film = new film();
     // echo $film->filmDirectors('Vengadores: Endgame');
-    echo $film->searchFilm('Vengadores');
+    $infoFilm = $film->searchFilm('Vengadores');
+    echo $infoFilm;
 ?>
