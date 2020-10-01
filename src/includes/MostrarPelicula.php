@@ -1,17 +1,20 @@
 <?php namespace MyApp\includes;
 use MyApp\includes\connectionDB as connection;
-class MostrarPelicula{
+class MostrarPelicula
+{
     private $nom;
     private $data;
     private $connexio;
 
-    public function __construct(){
-        $this->nom = "Vengadores";
-        $this->data = 2012;
-        $this->connexio = connection::connect();
+    public function __construct()
+    {
+        $this -> nom = 'Vengadores';
+        $this -> data = 2012;
+        $this -> connexio = connection::connect();
     }
 
-    function mostrarDades($id){
+    function mostrarDades($id)
+    {
         $pelicula = $this->getPelicula($id);
 
         foreach ($pelicula as $row) {
@@ -25,30 +28,23 @@ class MostrarPelicula{
                 'plataforma' => $row['plataforma']
             ];
         }
-        
 
         return $dades;
     }
 
-    function getPelicula($id){
+    function getPelicula($id)
+    {
         try{
-            $sql = $this->connexio->prepare("SELECT * FROM pelicula WHERE id = ".$id);
-            $sql->execute(array());
+            $sql = $this->connexio->prepare('SELECT * FROM pelicula WHERE id = :id');
+            $sql->execute(['id' => $id]);
             $result = $sql->fetchAll();
 
             return $result;
         }catch(PDOException $e){
-            echo "ERROR: " . $e->getMessage();
+            return "ERROR: {$e->getMessage()}";
         }
     }
 
-    private function getPeliculaDB($id){
-        $sql = $connect->prepare("SELECT * FROM pelicula WHERE id = ".$id);
-        $sql->execute(array());
-        $result = $sql->fetchAll();
-
-        return $result;
-    }
 }
 
 ?>

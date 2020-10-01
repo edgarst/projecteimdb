@@ -14,9 +14,9 @@ use MyApp\includes\FilmDB as filmInfo;
 <div class="row">
     <?php  for($i=0;$i<count($films);$i++){  ?>
         <div class="col">
-            <img src="<?php echo $films[$i]["caratula"]?>"alt="error">
+            <img src="<?php echo $films[$i]['caratula']?>"alt="error">
             <div class="text-img">
-                <h4><?php echo $films[$i]["titol"] ?></h4>
+                <h4><?php echo $films[$i]['titol'] ?></h4>
             </div>
         </div>
     <?php  }  ?>
