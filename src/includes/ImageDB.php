@@ -23,7 +23,7 @@ class ImageDB
                 $i++;
             }
 
-            return $images;
+            return json_encode($images);
         }catch(PDOException $e){
             return "ERROR: {$e->getMessage()}";
         }
@@ -36,18 +36,14 @@ class ImageDB
             $sql->execute(['film' => $film]);
             $result = $sql->fetchAll();
         
-            $i = 0;
             foreach ($result as $row) {
-                $images[$i] = $row['caratula'];
-                $i++;
+                $image = $row['caratula'];
             }
 
-            return $images;
+            return json_encode($images);
         }catch(PDOException $e){
             return "ERROR: {$e->getMessage()}";
         }
     }
 }
-
-
 ?>

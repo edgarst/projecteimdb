@@ -39,34 +39,48 @@ class FilmDB{
 
     function filmDirectors($title)
     {
-        $directors = $this->getDirectorsID($title);
-        $directorsID = $this->fetchDirectors($directors);
-        $sql = $this->connect->prepare('SELECT nom, cognom FROM director WHERE id IN :directorsID');
-        $sql->execute([$directorsID]);
+        $directors = json_decode($this->getPersonsID($title, 'director'), true);
+        $directorsID = implode(',',$this->fetchPersons($directors, 'director'));
+
+        $sql = $this->connect->prepare("SELECT nom, cognom FROM director WHERE id IN ({$directorsID})");
+        $sql->execute();
+        $result = $sql->fetchAll();
+
+        return json_encode($result);
+    }
+
+    function filmActors($title)
+    {
+        $actors = json_decode($this->getPersonsID($title, 'actor'), true);
+        $actorsID = implode(',',$this->fetchPersons($actors, 'actor'));
+        
+        $sql = $this->connect->prepare("SELECT nom, cognom FROM actor WHERE id IN ({$actorsID})");
+        $sql->execute();
         $result = $sql->fetchAll();
 
         return json_encode($result);
     }
     
-    private function getDirectorsID($title)
+    private function getPersonsID($title, $col)
     {
-        $id = $this->getFilmID($title);
-        $sql = $this->connect->prepare('SELECT id_director FROM pelicula_director WHERE id_pelicula = :id');
+        $id = json_decode($this->getFilmID($title), true);
+        $id = $id[0]['id'];
+        $sql = $this->connect->prepare("SELECT id_{$col} FROM pelicula_{$col} WHERE id_pelicula = :id");
         $sql->execute(['id' => $id]);
         $result = $sql->fetchAll();
-
+        
         return json_encode($result);
     }
 
-    private function fetchDirectors($directors)
+    private function fetchPersons($values, $col)
     {
-        $i=0;
-        foreach ($directors as $item) {
-            $item += $directors[$i]['id_director'];
+        $i=0; $info=array();
+        foreach ($values as $item) {
+            $key = ":id{$i}";
+            $info[$key] = $item["id_{$col}"];
             $i++;
         }
-        $item = rtrim($item,",");
-        return $item;
+        return $info;
     }
 
     function getFilmID($title)
@@ -74,9 +88,8 @@ class FilmDB{
         $sql = $this->connect->prepare('SELECT id FROM pelicula WHERE titol LIKE :title');
         $sql->execute(['title' => $title]);
         $result = $sql->fetchAll();
-
+        
         return json_encode($result);
     }
-
 }
 ?>

@@ -9,7 +9,8 @@ class PlatformDB
         $this->connect = connection::connect();
     }
 
-    function getPlatformID($platform){
+    function getPlatformID($platform)
+    {
         $sql = $this->connect->prepare('SELECT id FROM plataforma WHERE nom LIKE :platform');
         $sql->execute(['platform' => $platform]);
         $result = $sql->fetchAll();
