@@ -10,19 +10,22 @@ class Image
         $file = $imgFolder . basename($img['caratula']['name']);
     }
 
-    function uploadImage($img)
+    function uploadImage()
     {
-        $imageTrue = checkImage();
-        if($imageTrue!==true){
-            return $imageTrue;
+        // $imageTrue = checkImage();
+        // if($imageTrue!==true){
+        //     return $imageTrue;
+        // }
+
+
+        return checkImage() ?? false; // Fix this
+
+        if (move_uploaded_file($_FILES['caratula']['tmp_name'], $file)) {
+            $fileName = basename($_FILES['caratula']['name']);
+            return "The file {$fileName} has been uploaded.";
         }
 
-        if (move_uploaded_file($img['caratula']['tmp_name'], $file)) {
-            $fileName = basename($img['caratula']['name']);
-            return "El fitxer {$fileName} s'ha penjat correctament.";
-        }
-
-        return 'Hi ha hagut un error a l\'hora de penjar el fitxer. Torna a provar en un altre moment.';
+        return 'There was an erro uploading your file. Try again later.';
     }
     
     // Image Comprovation
@@ -30,23 +33,21 @@ class Image
     {
         // It's an image?
         if(isset($_POST['submit'])) {
-            $check = getimagesize($img['caratula']['tmp_name']);
+            $check = getimagesize($_FILES['caratula']['tmp_name']);
             if($check == false) {
-                return 'El fitxer no és una imatge';
+                return 'File is not an image.';
             }
         }
 
         // It already exists?
         if (file_exists($this->file)) {
-            return 'El fitxer ja existeix.';
+            return 'File already exists.';
         }
 
         // Size limitation
-        if ($img['caratula']['size'] > 500000) {
-            return 'Ho sento el fitxer pesa massa';
+        if ($_FILES['caratula']['size'] > 500000) {
+            return 'The file is too large.';
         }
-
-        return true;
     }
 }
 ?>
