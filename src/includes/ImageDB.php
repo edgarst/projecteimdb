@@ -15,7 +15,7 @@ class ImageDB
         try{
             $sql = $this->connection->prepare('SELECT * FROM pelicula');
             $sql->execute(array());
-            $result = $sql->fetchAll();
+            $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
             $i = 0;
             foreach ($result as $row) {
@@ -34,7 +34,7 @@ class ImageDB
         try{
             $sql = $this->connection->prepare('SELECT * FROM pelicula WHERE titol LIKE :film');
             $sql->execute(['film' => $film]);
-            $result = $sql->fetchAll();
+            $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
             foreach ($result as $row) {
                 $image = $row['caratula'];

@@ -1,6 +1,7 @@
 <?php namespace MyApp\includes;
 use MyApp\includes\connectionDB as connection;
 use MyApp\includes\PlatformDB as platform;
+use PDO;
 class FilmDB{
     private $connect;
 
@@ -12,7 +13,7 @@ class FilmDB{
     {
         $sql = $this->connect->prepare('SELECT * FROM pelicula WHERE titol LIKE :title');
         $sql->execute(['title' => $title]);
-        $result = $sql->fetchAll();
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         return json_encode($result);
     }
 
@@ -32,7 +33,7 @@ class FilmDB{
     {
         $sql = $this->connect->prepare('SELECT * FROM pelicula');
         $sql->execute([]);
-        $result = $sql->fetchAll();
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         return json_encode($result);
     }
@@ -44,7 +45,7 @@ class FilmDB{
 
         $sql = $this->connect->prepare("SELECT nom, cognom FROM director WHERE id IN ({$directorsID})");
         $sql->execute();
-        $result = $sql->fetchAll();
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         return json_encode($result);
     }
@@ -56,7 +57,7 @@ class FilmDB{
         
         $sql = $this->connect->prepare("SELECT nom, cognom FROM actor WHERE id IN ({$actorsID})");
         $sql->execute();
-        $result = $sql->fetchAll();
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         return json_encode($result);
     }
@@ -67,7 +68,7 @@ class FilmDB{
         $id = $id[0]['id'];
         $sql = $this->connect->prepare("SELECT id_{$col} FROM pelicula_{$col} WHERE id_pelicula = :id");
         $sql->execute(['id' => $id]);
-        $result = $sql->fetchAll();
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
         return json_encode($result);
     }
@@ -87,7 +88,7 @@ class FilmDB{
     {
         $sql = $this->connect->prepare('SELECT id FROM pelicula WHERE titol LIKE :title');
         $sql->execute(['title' => $title]);
-        $result = $sql->fetchAll();
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
         return json_encode($result);
     }

@@ -1,15 +1,13 @@
-<?php namespace MyApp\includes;
+<?php 
+namespace MyApp\includes;
 use MyApp\includes\connectionDB as connection;
+use PDO;
 class MostrarPelicula
 {
-    private $nom;
-    private $data;
     private $connexio;
 
     public function __construct()
     {
-        $this -> nom = 'Vengadores';
-        $this -> data = 2012;
         $this -> connexio = connection::connect();
     }
 
@@ -45,6 +43,48 @@ class MostrarPelicula
         }
     }
 
+    function showMovie($title){
+        $film = new filmDB();
+        $platform = new platformDB();
+    
+        $filmInfo = $film->searchFilm($title);
+        $filmInfo = json_decode($filmInfo, true)[0];
+        
+        echo '<pre>';
+        print_r($filmInfo);
+        echo '</pre>';
+
+        $platformName = $platform->getPlatformName($filmInfo['plataforma']);
+        
+        foreach ($filmInfo as $key => $value) {
+            echo "{$key}: {$value} <br />";
+        }
+        $this->showPeople($film, $filmInfo['titol'], 'directors');
+        $this->showPeople($film, $filmInfo['titol'], 'actors');
+    }
+
+    private function showPeople($filmDB, $title, $person){
+        $people = $this->checkPerson($filmDB, $title, $person);
+        echo "{$person}: ";
+        for ($i=0; $i < count($people); $i++) { 
+            echo "{$people[$i]['nom']} ";
+            echo $people[$i]['cognom'];
+            if($i != count($people)-1) echo ", ";
+        }
+    }
+
+    private function checkPerson($filmDB, $title, $person){
+        if($person =='directors') return $this->Directors($filmDB, $title);
+        return $this->Actors($filmDB, $title);
+    }
+
+    private function Directors($film, $title){
+        return json_decode($film->filmDirectors($title), true);
+    }
+
+    private function Actors($film, $title){
+        return json_decode($film->filmActors($title), true);
+    }
 }
 
 ?>
