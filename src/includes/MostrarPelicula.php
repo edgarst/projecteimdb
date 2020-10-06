@@ -22,7 +22,8 @@ class MostrarPelicula
         return $dades;
     }
 
-    function showMovie($title){
+    function showMovie($title)
+    {
         $movies = $this->getFilmsArray($title);
         echo '<pre>';
         print_r($movies);
@@ -38,7 +39,8 @@ class MostrarPelicula
         }
     }
 
-    private function showMoviePersons($moviePersons, $key){
+    private function showMoviePersons($moviePersons, $key)
+    {
         echo "{$key}: ";
         for ($i=0; $i < count($moviePersons) ; $i++) { 
             echo "{$moviePersons[$i]['nom']} ";
@@ -47,7 +49,8 @@ class MostrarPelicula
         }
     }
 
-    private function getFilmsArray($title){
+    private function getFilmsArray($title)
+    {
         $film = new filmDB();
         $platform = new platformDB();
     
@@ -64,11 +67,13 @@ class MostrarPelicula
         return $movies;
     }
 
-    private function Directors($film, $title){
+    private function Directors($film, $title)
+    {
         return json_decode($film->filmDirectors($title), true);
     }
 
-    private function Actors($film, $title){
+    private function Actors($film, $title)
+    {
         return json_decode($film->filmActors($title), true);
     }
 }

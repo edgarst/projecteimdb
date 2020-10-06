@@ -1,12 +1,14 @@
 <?php namespace MyApp\includes;
-use MyApp\includes\connectionDB as connection;
-use MyApp\includes\PlatformDB as platform;
+use MyApp\includes\connectionDB as CONNECTION;
+use MyApp\includes\PlatformDB as PLATFORM;
 use PDO;
-class FilmDB{
+class FilmDB
+{
     private $connect;
 
-    public function __construct(){
-        $this->connect = connection::connect();
+    public function __construct()
+    {
+        $this->connect = CONNECTION::connect();
     }
 
     function searchFilm($title)
@@ -20,7 +22,7 @@ class FilmDB{
     function insertFilm($film)
     {
         $release = date('Y', strtotime($film->getRelease()));
-        $platform = platform::getPlatformID($film->getPlatform());
+        $platform = PLATFORM::getPlatformID($film->getPlatform());
 
         $insert = $this->connect->prepare('INSERT INTO pelicula(titol, sinopsis, valoracio, publicacio, plataforma, caratula)
         VALUES (?,?,?,?,?,?)');
@@ -93,7 +95,8 @@ class FilmDB{
         return json_encode($result);
     }
 
-    function getFilmByID($id){
+    function getFilmByID($id)
+    {
         try{
             $sql = $this->connect->prepare('SELECT * FROM pelicula WHERE id = :id');
             $sql->execute(['id' => $id]);
@@ -105,7 +108,8 @@ class FilmDB{
         }
     }
 
-    function getFilmsByGenre($genre){
+    function getFilmsByGenre($genre)
+    {
         try{
             $sql = $this->connect->prepare('SELECT * FROM pelicula_genere WHERE id_genere = :id');
             $sql->execute(['id' => $id]);
