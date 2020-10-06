@@ -1,16 +1,8 @@
 <?php 
 namespace MyApp\includes;
-use MyApp\includes\connectionDB as connection;
-use PDO;
+
 class MostrarPelicula
 {
-    private $connexio;
-
-    public function __construct()
-    {
-        $this -> connexio = connection::connect();
-    }
-
     function mostrarDades($id)
     {
         $pelicula = $this->getPelicula($id);
@@ -30,52 +22,46 @@ class MostrarPelicula
         return $dades;
     }
 
-    function getPelicula($id)
-    {
-        try{
-            $sql = $this->connexio->prepare('SELECT * FROM pelicula WHERE id = :id');
-            $sql->execute(['id' => $id]);
-            $result = $sql->fetchAll();
+    function showMovie($title){
+        $movies = $this->getFilmsArray($title);
+        echo '<pre>';
+        print_r($movies);
+        echo '</pre>';
 
-            return $result;
-        }catch(PDOException $e){
-            return "ERROR: {$e->getMessage()}";
+        foreach ($movies as $key => $col) {
+            foreach ($col as $key => $values) {
+                if(is_array($values)) $this->showMoviePersons($values, $key);
+                else echo "{$key}: {$values}";
+                echo "<br />";
+            }
+            echo "<br />";
         }
     }
 
-    function showMovie($title){
+    private function showMoviePersons($moviePersons, $key){
+        echo "{$key}: ";
+        for ($i=0; $i < count($moviePersons) ; $i++) { 
+            echo "{$moviePersons[$i]['nom']} ";
+            echo "{$moviePersons[$i]['cognom']}";
+            if($i < count($moviePersons)-1) echo ', ';
+        }
+    }
+
+    private function getFilmsArray($title){
         $film = new filmDB();
         $platform = new platformDB();
     
         $filmInfo = $film->searchFilm($title);
-        $filmInfo = json_decode($filmInfo, true)[0];
-        
-        echo '<pre>';
-        print_r($filmInfo);
-        echo '</pre>';
+        $filmInfo = json_decode($filmInfo, true);
 
-        $platformName = $platform->getPlatformName($filmInfo['plataforma']);
-        
         foreach ($filmInfo as $key => $value) {
-            echo "{$key}: {$value} <br />";
+            $movies[$value['id']] = $value;
+            $movies[$value['id']]['directors'] = $this->Directors($film, $title);
+            $movies[$value['id']]['actors'] = $this->Actors($film, $title);
+            $movies[$value['id']]['plataforma'] = $platform->getPlatformName($movies[$value['id']]['plataforma']);
         }
-        $this->showPeople($film, $filmInfo['titol'], 'directors');
-        $this->showPeople($film, $filmInfo['titol'], 'actors');
-    }
 
-    private function showPeople($filmDB, $title, $person){
-        $people = $this->checkPerson($filmDB, $title, $person);
-        echo "{$person}: ";
-        for ($i=0; $i < count($people); $i++) { 
-            echo "{$people[$i]['nom']} ";
-            echo $people[$i]['cognom'];
-            if($i != count($people)-1) echo ", ";
-        }
-    }
-
-    private function checkPerson($filmDB, $title, $person){
-        if($person =='directors') return $this->Directors($filmDB, $title);
-        return $this->Actors($filmDB, $title);
+        return $movies;
     }
 
     private function Directors($film, $title){

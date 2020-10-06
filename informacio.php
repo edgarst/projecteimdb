@@ -10,4 +10,14 @@ if ($_GET['name']) {
     $movie->showMovie($_GET['name']);
 }
 
+if ($_GET['platform']) {
+    $movie = new showFilm();
+    $movie->showMovie($_GET['platform']);
+}
+
+if ($_GET['genre']) {
+    $movie = new showFilm();
+    $movie->showMovie($_GET['genre']);
+}
+
 ?>

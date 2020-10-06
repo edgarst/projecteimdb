@@ -11,8 +11,8 @@ class FilmDB{
 
     function searchFilm($title)
     {
-        $sql = $this->connect->prepare('SELECT * FROM pelicula WHERE titol LIKE :title');
-        $sql->execute(['title' => $title]);
+        $sql = $this->connect->prepare('SELECT * FROM pelicula WHERE titol LIKE ?');
+        $sql->execute(["{$title}%"]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         return json_encode($result);
     }
@@ -44,7 +44,7 @@ class FilmDB{
         $directorsID = implode(',',$this->fetchPersons($directors, 'director'));
 
         $sql = $this->connect->prepare("SELECT nom, cognom FROM director WHERE id IN ({$directorsID})");
-        $sql->execute();
+        $sql->execute([]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         return json_encode($result);
@@ -56,7 +56,7 @@ class FilmDB{
         $actorsID = implode(',',$this->fetchPersons($actors, 'actor'));
         
         $sql = $this->connect->prepare("SELECT nom, cognom FROM actor WHERE id IN ({$actorsID})");
-        $sql->execute();
+        $sql->execute([]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         return json_encode($result);
@@ -91,6 +91,30 @@ class FilmDB{
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
         return json_encode($result);
+    }
+
+    function getFilmByID($id){
+        try{
+            $sql = $this->connect->prepare('SELECT * FROM pelicula WHERE id = :id');
+            $sql->execute(['id' => $id]);
+            $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
+        }catch(PDOException $e){
+            return "ERROR: {$e->getMessage()}";
+        }
+    }
+
+    function getFilmsByGenre($genre){
+        try{
+            $sql = $this->connect->prepare('SELECT * FROM pelicula_genere WHERE id_genere = :id');
+            $sql->execute(['id' => $id]);
+            $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
+        }catch(PDOException $e){
+            return "ERROR: {$e->getMessage()}";
+        }
     }
 }
 ?>
