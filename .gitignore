@@ -13,4 +13,5 @@
 
 ### Composer ###
 vendor/*
+vendor/composer/*
 composer.json
