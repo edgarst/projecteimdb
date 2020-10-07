@@ -10,7 +10,7 @@ class PlatformDB
         $this->connect = connection::connect();
     }
 
-    function getPlatformID($platform)
+    function getPlatformID(String $platform): int
     {
         $sql = $this->connect->prepare('SELECT id FROM plataforma WHERE nom LIKE :platform');
         $sql->execute(['platform' => $platform]);
@@ -20,7 +20,7 @@ class PlatformDB
         return $id;
     }
 
-    function getPlatformName($id)
+    function getPlatformName(int $id): String
     {
         $sql = $this->connect->prepare('SELECT nom FROM plataforma WHERE id = :id');
         $sql->execute(['id' => $id]);
@@ -30,7 +30,7 @@ class PlatformDB
         return $name;
     }
     
-    function getPlatformURL($platform)
+    function getPlatformURL(String $platform): String
     {
         $sql = $this->connect->prepare('SELECT url FROM plataforma WHERE nom LIKE :platform');
         $sql->execute(['platform' => $platform]);
@@ -40,7 +40,7 @@ class PlatformDB
         return $link;
     }
 
-    function getPlatforms()
+    function getPlatforms(): Array
     {
         try{
             $sql = $this->connect->prepare('SELECT * FROM plataforma');
@@ -53,7 +53,7 @@ class PlatformDB
                 $i++;
             }
             
-            return $plataforma;
+            return json_encode($plataforma);
         }catch(PDOException $e){
             return "ERROR: {$e->getMessage()}";
         }

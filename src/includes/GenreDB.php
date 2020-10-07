@@ -1,5 +1,6 @@
 <?php namespace MyApp\includes;
 use MyApp\includes\connectionDB as CONNECTION;
+use PDO;
 class GenreDB
 {
     private $connect;
@@ -9,7 +10,7 @@ class GenreDB
         $this->connect = CONNECTION::connect();
     }
 
-    function getGenreID($genre)
+    function getGenreID(String $genre): json
     {
         $sql = $this->connect->prepare('SELECT id FROM genere WHERE genere LIKE :genere');
         $sql->execute(['genere' => $genre]);
@@ -17,7 +18,7 @@ class GenreDB
         return json_encode($result);
     }
 
-    function getGenres()
+    function getGenres(): json
     {
         $sql = $this->connect->prepare('SELECT * FROM genere');
         $sql->execute([]);
@@ -25,7 +26,7 @@ class GenreDB
         return json_encode($result);
     }
 
-    function getFilmID($idGenre)
+    function getFilmID(int $idGenre): json
     {
         $sql = $this->connect->prepare('SELECT id_pelicula FROM pelicula_genere WHERE id_genere = :idGenre');
         $sql->execute(['idGenre' => $idGenre]);
