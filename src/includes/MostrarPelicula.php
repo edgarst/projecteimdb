@@ -4,7 +4,7 @@ use MyApp\includes\FilmDB as FILMDB;
 use MyApp\includes\PlatformDB as PLATFORMDB;
 class MostrarPelicula
 {
-    function showMovie(String $title): json
+    function showMovie(String $title): String
     {
         $movies = $this->getFilmsArray($title);
         echo '<pre>';
@@ -21,12 +21,12 @@ class MostrarPelicula
         }
     }
 
-    function showMovieByGenre(String $genre): json
+    function showMovieByGenre(String $genre): String
     {
         $film = new FILMDB();
-        $movies = json_decode($film->getFilmsByGenre($genre));
+        $movies = json_decode($film->getFilmsByGenre($genre), true);
         foreach ($movies as $movie) {
-            showMovie($movie);
+            $this->showMovie($movie['titol']);
         }
     }
 
@@ -58,12 +58,12 @@ class MostrarPelicula
         return $movies;
     }
 
-    private function Directors(String $film, String $title): json
+    private function Directors(String $film, String $title): String
     {
         return json_decode($film->filmDirectors($title), true);
     }
 
-    private function Actors(String $film, String $title): json
+    private function Actors(String $film, String $title): String
     {
         return json_decode($film->filmActors($title), true);
     }
