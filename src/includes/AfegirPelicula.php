@@ -25,7 +25,6 @@ class AfegirPelicula
             VALUES(?,?,?,?)');
             $insertMovie->execute(['titol' => $film->getTitle(), 'sinopsis' => $film->getSinopsis(), 'valoracio' => $film->getRating(), 
                 'publicacio' => $release, 'plataforma' => $platform, 'caratula' => $film->getImg()]);
-            // echo "Pelicula insertada correctament :D";
         } catch (PDOException $e) {
             return "Error, no s'ha pogut insertar la pelicula";
         }

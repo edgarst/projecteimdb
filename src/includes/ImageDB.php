@@ -15,7 +15,7 @@ class ImageDB
         try{
             $sql = $this->connection->prepare('SELECT * FROM pelicula');
             $sql->execute(array());
-            $result = $sql->fetchAll();
+            $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
             $i = 0;
             foreach ($result as $row) {
@@ -23,7 +23,7 @@ class ImageDB
                 $i++;
             }
 
-            return $images;
+            return json_encode($images);
         }catch(PDOException $e){
             return "ERROR: {$e->getMessage()}";
         }
@@ -34,20 +34,16 @@ class ImageDB
         try{
             $sql = $this->connection->prepare('SELECT * FROM pelicula WHERE titol LIKE :film');
             $sql->execute(['film' => $film]);
-            $result = $sql->fetchAll();
+            $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
-            $i = 0;
             foreach ($result as $row) {
-                $images[$i] = $row['caratula'];
-                $i++;
+                $image = $row['caratula'];
             }
 
-            return $images;
+            return json_encode($images);
         }catch(PDOException $e){
             return "ERROR: {$e->getMessage()}";
         }
     }
 }
-
-
 ?>

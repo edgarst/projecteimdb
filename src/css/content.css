@@ -5,13 +5,8 @@
     border: 2px solid red;
 }
 
-/* .row *{
-    box-sizing: border-box;
-} */
-
 .row{
     float: left;
-    /* flex-wrap: wrap; */
     width: 75%;
 }
 
@@ -28,11 +23,12 @@
     margin-top: 8px;
 }
 
-.text-img{
+.text-img a{
     position: absolute;
     padding: 20px;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     color: white;
+    text-decoration: none;
     width: 95.7%;
 }
