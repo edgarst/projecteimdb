@@ -1,52 +1,71 @@
-<?php namespace MyApp\includes;
-
-use MyApp\includes\connectionDB as connection;
-
+<?php 
+namespace MyApp\includes;
+use MyApp\includes\FilmDB as FILMDB;
+use MyApp\includes\PlatformDB as PLATFORMDB;
 class MostrarPelicula
 {
-    private $nom;
-    private $data;
-    private $connexio;
-
-    public function __construct()
+    function showMovie($title)
     {
-        $this -> nom = 'Vengadores';
-        $this -> data = 2012;
-        $this -> connexio = connection::connect();
-    }
+        $movies = $this->getFilmsArray($title);
+        echo '<pre>';
+        print_r($movies);
+        echo '</pre>';
 
-    function mostrarDades($id)
-    {
-        $pelicula = $this->getPelicula($id);
-
-        foreach ($pelicula as $row) {
-            $dades = [
-                'id' => $row['id'],
-                'titol' => $row['titol'],
-                'sinopsis' => $row['sinopsis'],
-                'data' => $row['publicacio'],
-                'valoracio' => $row['valoracio'],
-                'caratula' => $row['caratula'],
-                'plataforma' => $row['plataforma']
-            ];
-        }
-
-        return $dades;
-    }
-
-    function getPelicula($id)
-    {
-        try{
-            $sql = $this->connexio->prepare('SELECT * FROM pelicula WHERE id = :id');
-            $sql->execute(['id' => $id]);
-            $result = $sql->fetchAll();
-
-            return $result;
-        }catch(PDOException $e){
-            return "ERROR: {$e->getMessage()}";
+        foreach ($movies as $key => $col) {
+            foreach ($col as $key => $values) {
+                if(is_array($values)) $this->showMoviePersons($values, $key);
+                else echo "{$key}: {$values}";
+                echo "<br />";
+            }
+            echo "<br />";
         }
     }
 
+    function showMovieByGenre($genre){
+        $film = new FILMDB();
+        $movies = json_decode($film->getFilmsByGenre($genre));
+        foreach ($movies as $movie) {
+            showMovie($movie);
+        }
+    }
+
+    private function showMoviePersons($moviePersons, $key)
+    {
+        echo "{$key}: ";
+        for ($i=0; $i < count($moviePersons) ; $i++) { 
+            echo "{$moviePersons[$i]['nom']} ";
+            echo "{$moviePersons[$i]['cognom']}";
+            if($i < count($moviePersons)-1) echo ', ';
+        }
+    }
+
+    private function getFilmsArray($title)
+    {
+        $film = new FILMDB();
+        $platform = new PLATFORMDB();
+    
+        $filmInfo = $film->searchFilm($title);
+        $filmInfo = json_decode($filmInfo, true);
+
+        foreach ($filmInfo as $key => $value) {
+            $movies[$value['id']] = $value;
+            $movies[$value['id']]['directors'] = $this->Directors($film, $title);
+            $movies[$value['id']]['actors'] = $this->Actors($film, $title);
+            $movies[$value['id']]['plataforma'] = $platform->getPlatformName($movies[$value['id']]['plataforma']);
+        }
+
+        return $movies;
+    }
+
+    private function Directors($film, $title)
+    {
+        return json_decode($film->filmDirectors($title), true);
+    }
+
+    private function Actors($film, $title)
+    {
+        return json_decode($film->filmActors($title), true);
+    }
 }
 
 ?>

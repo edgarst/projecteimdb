@@ -1,5 +1,6 @@
 <?php namespace MyApp\includes;
 use MyApp\includes\connectionDB as connection;
+use PDO;
 class PlatformDB 
 {
     private $connect;
@@ -9,22 +10,33 @@ class PlatformDB
         $this->connect = connection::connect();
     }
 
-    function getPlatformID($platform){
+    function getPlatformID($platform)
+    {
         $sql = $this->connect->prepare('SELECT id FROM plataforma WHERE nom LIKE :platform');
         $sql->execute(['platform' => $platform]);
-        $result = $sql->fetchAll();
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-        $id = result['id'];
+        $id = $result[0]['id'];
         return $id;
     }
 
+    function getPlatformName($id)
+    {
+        $sql = $this->connect->prepare('SELECT nom FROM plataforma WHERE id = :id');
+        $sql->execute(['id' => $id]);
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        $name = $result[0]['nom'];
+        return $name;
+    }
+    
     function getPlatformURL($platform)
     {
         $sql = $this->connect->prepare('SELECT url FROM plataforma WHERE nom LIKE :platform');
         $sql->execute(['platform' => $platform]);
-        $result = $sql->fetchAll();
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-        $link = result['url'];
+        $link = $result[0]['url'];
         return $link;
     }
 
@@ -32,8 +44,8 @@ class PlatformDB
     {
         try{
             $sql = $this->connect->prepare('SELECT * FROM plataforma');
-            $sql->execute(array());
-            $result = $sql->fetchAll();
+            $sql->execute([]);
+            $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
             $i = 0;
             foreach ($result as $row) {
