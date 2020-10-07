@@ -1,0 +1,16 @@
+{
+    "name": "esegui/imdb",
+    "description": "IMDb",
+    "authors": [
+        {
+            "name": "Edgar Segui",
+            "email": "esegui@gnahs.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "MyApp\\": "src/"
+        }
+    }
+}
