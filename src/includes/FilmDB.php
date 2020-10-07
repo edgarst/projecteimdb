@@ -1,6 +1,7 @@
 <?php namespace MyApp\includes;
 use MyApp\includes\connectionDB as CONNECTION;
 use MyApp\includes\PlatformDB as PLATFORM;
+use MyApp\includes\GenreDB as GENRE;
 use PDO;
 class FilmDB
 {
@@ -102,7 +103,7 @@ class FilmDB
             $sql->execute(['id' => $id]);
             $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-            return $result;
+            return json_encode($result);
         }catch(PDOException $e){
             return "ERROR: {$e->getMessage()}";
         }
@@ -110,12 +111,14 @@ class FilmDB
 
     function getFilmsByGenre($genre)
     {
+        $genre = new GENRE();
+        $filmsID = json_decode($genre->getFilmID($genre->getGenreID($genre)), true);
         try{
-            $sql = $this->connect->prepare('SELECT * FROM pelicula_genere WHERE id_genere = :id');
-            $sql->execute(['id' => $id]);
+            $sql = $this->connect->prepare("SELECT titol FROM pelicula WHERE id IN ({$filmsID})");
+            $sql->execute([]);
             $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-            return $result;
+            return json_encode($result);
         }catch(PDOException $e){
             return "ERROR: {$e->getMessage()}";
         }

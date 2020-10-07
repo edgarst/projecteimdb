@@ -25,9 +25,10 @@ class GenreDB
         return json_encode($result);
     }
 
-    function getFilmID($idGenre){
-        $sql = $this->connect->prepare('SELECT id_pelicula FROM pelicula_genere WHERE id_genere = :idGenere');
-        $sql->execute(['idGenere' => $idGenre]);
+    function getFilmID($idGenre)
+    {
+        $sql = $this->connect->prepare('SELECT id_pelicula FROM pelicula_genere WHERE id_genere = :idGenre');
+        $sql->execute(['idGenre' => $idGenre]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         return json_encode($result);
     }
