@@ -12,7 +12,9 @@ return array(
     'MyApp\\includes\\EliminarPelicula' => $baseDir . '/src/includes/EliminarPelicula.php',
     'MyApp\\includes\\Film' => $baseDir . '/src/includes/Film.php',
     'MyApp\\includes\\FilmDB' => $baseDir . '/src/includes/FilmDB.php',
+    'MyApp\\includes\\GenreDB' => $baseDir . '/src/includes/GenreDB.php',
     'MyApp\\includes\\Image' => $baseDir . '/src/includes/image.php',
     'MyApp\\includes\\ImageDB' => $baseDir . '/src/includes/ImageDB.php',
+    'MyApp\\includes\\MostrarPelicula' => $baseDir . '/src/includes/MostrarPelicula.php',
     'MyApp\\includes\\PlatformDB' => $baseDir . '/src/includes/PlatformDB.php',
 );

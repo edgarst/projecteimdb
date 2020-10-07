@@ -27,8 +27,10 @@ class ComposerStaticInitada76f893e3fb1e2ddaf17a485890682
         'MyApp\\includes\\EliminarPelicula' => __DIR__ . '/../..' . '/src/includes/EliminarPelicula.php',
         'MyApp\\includes\\Film' => __DIR__ . '/../..' . '/src/includes/Film.php',
         'MyApp\\includes\\FilmDB' => __DIR__ . '/../..' . '/src/includes/FilmDB.php',
+        'MyApp\\includes\\GenreDB' => __DIR__ . '/../..' . '/src/includes/GenreDB.php',
         'MyApp\\includes\\Image' => __DIR__ . '/../..' . '/src/includes/image.php',
         'MyApp\\includes\\ImageDB' => __DIR__ . '/../..' . '/src/includes/ImageDB.php',
+        'MyApp\\includes\\MostrarPelicula' => __DIR__ . '/../..' . '/src/includes/MostrarPelicula.php',
         'MyApp\\includes\\PlatformDB' => __DIR__ . '/../..' . '/src/includes/PlatformDB.php',
     );
 
