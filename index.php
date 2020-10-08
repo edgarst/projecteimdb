@@ -4,7 +4,7 @@
 
 
 <?php 
-    $version = 'v2.3.0';
+    $version = 'v2.3.1';
     require 'vendor/autoload.php';
     require('src/includes/ConnectionDB.php');
     include('src/content/header.html');
