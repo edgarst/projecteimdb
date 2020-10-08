@@ -8,7 +8,7 @@ class Film
     private $platform;
     private $img;
 
-    public function __construct($title, $sinopsis, $release_date, $rating, $platform, $img)
+    public function __construct(String $title, String $sinopsis, String $release_date, int $rating, String $platform, String $img)
     {
         $this -> title = $title;
         $this -> sinopsis = $sinopsis;
@@ -18,32 +18,32 @@ class Film
         $this -> img = $img;
     }
 
-    function getTitle()
+    function getTitle(): String
     {
         return $this->title;
     }
 
-    function getSinopsis()
+    function getSinopsis(): String
     {
         return $this->sinopsis;
     }
 
-    function getRelease()
+    function getRelease(): String
     {
         return $this->release_date;
     }
 
-    function getRating()
+    function getRating(): int
     {
         return $this->rating;
     }
 
-    function getPlatform()
+    function getPlatform(): String
     {
         return $this->platform;
     }
 
-    function getImg()
+    function getImg(): String
     {
         return $this->img;
     }

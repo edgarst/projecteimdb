@@ -1,24 +1,19 @@
 <?php namespace MyApp\includes;
-use MyApp\includes\ConnectionDB as connection;
-use MyApp\includes\PlatformDB as platformDB;
+use MyApp\includes\ConnectionDB as CONNECTION;
+use MyApp\includes\PlatformDB as PLATFORMDB;
 class AfegirPelicula
 {
-    private $film;
     private $connexio;
 
-    public function __construct($title, $sinopsis, $valoracio, $publicacio)
+    public function __construct()
     {
-        $this->title = $title;
-        $this->sinopsis = $sinopsis;
-        $this->valoracio = $valoracio;
-        $this->publicacio = $publicacio;
-        $this->connexio = connection::connect();
+        $this->connexio = CONNECTION::connect();
     }
 
-    function add($film)
+    function add(FILM $film): String
     {
         $release = date('Y', strtotime($film->getRelease()));
-        $platform = platformDB::getPlatformID($film->getPlatform());
+        $platform = PLATFORMDB::getPlatformID($film->getPlatform());
 
         try {
             $insertMovie = $this->connexio->prepare('INSERT INTO pelicula(titol, sinopsis, valoracio, publicacio, plataforma, caratula)
@@ -26,7 +21,7 @@ class AfegirPelicula
             $insertMovie->execute(['titol' => $film->getTitle(), 'sinopsis' => $film->getSinopsis(), 'valoracio' => $film->getRating(), 
                 'publicacio' => $release, 'plataforma' => $platform, 'caratula' => $film->getImg()]);
         } catch (PDOException $e) {
-            return "Error, no s'ha pogut insertar la pelicula";
+            return 'Error, the film couldn\'t be uploaded';
         }
     }
 }
