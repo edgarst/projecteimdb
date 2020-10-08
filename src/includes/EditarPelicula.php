@@ -6,11 +6,13 @@
 class EditarPelicula{
     private $connexio;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->connexio = BaseDades::connect();
     }
 
-    function edit($id, $titol){
+    function edit($id, $titol)
+    {
         try {
             $stmt = $this->connexio->prepare("UPDATE pelicula SET titol = :titol WHERE id LIKE :id");
             $stmt->execute(array(':titol' => $titol, ':id' => $id));

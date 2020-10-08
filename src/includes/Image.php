@@ -1,16 +1,16 @@
 <?php namespace MyApp\includes;
-use MyApp\includes\connectionDB as connection;
 
 class Image 
 {
     private $file;
 
-    public function __construct(){
+    public function __construct()
+    {
         $imgFolder = 'src/content/img/';
         $file = $imgFolder . basename($img['caratula']['name']);
     }
 
-    function uploadImage()
+    function uploadImage(): String
     {
         // $imageTrue = checkImage();
         // if($imageTrue!==true){
@@ -25,11 +25,11 @@ class Image
             return "The file {$fileName} has been uploaded.";
         }
 
-        return 'There was an erro uploading your file. Try again later.';
+        return 'There was an error uploading your file. Try again later.';
     }
     
     // Image Comprovation
-    private function checkImage()
+    private function checkImage(): String
     {
         // It's an image?
         if(isset($_POST['submit'])) {

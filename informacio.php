@@ -18,7 +18,10 @@ if ($_GET['platform']) {
 
 if ($_GET['genre']) {
     $movie = new FILMDB();
-    $movie->getFilmsByGenre($_GET['genre']);
+    $show = new SHOWFILM();
+    $show->showMovieByGenre($_GET['genre']);
+    // $movies = json_decode($movie->getFilmsByGenre($_GET['genre']), true);
+
 }
 
 ?>

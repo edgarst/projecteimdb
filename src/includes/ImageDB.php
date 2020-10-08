@@ -10,7 +10,7 @@ class ImageDB
         $this->connection = connection::connect();
     }
 
-    function getImages()
+    function getImages(): json
     {
         try{
             $sql = $this->connection->prepare('SELECT * FROM pelicula');
@@ -29,7 +29,7 @@ class ImageDB
         }
     }
 
-    function getFilmImage($film)
+    function getFilmImage($film): json
     {
         try{
             $sql = $this->connection->prepare('SELECT * FROM pelicula WHERE titol LIKE :film');
