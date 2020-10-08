@@ -1,14 +1,20 @@
 <?php 
 require 'vendor/autoload.php';
+header('Content-Type: application/json');
+
+// ini_set('display_errors', '1');
+// ini_set('display_startup_errors', '1');
+// error_reporting(E_ALL);
 
 use MyApp\includes\FilmDB as FILMDB;
 use MyApp\includes\PlatformDB as PLATFORMDB;
 use MyApp\includes\MostrarPelicula as SHOWFILM;
 use MyApp\includes\GenreDB as GENREDB;
 
-if ($_GET['name']) {
-    $movie = new SHOWFILM();
-    $movie->showMovie($_GET['name']);
+if ($_GET['title']) {
+    $movie = new FILMDB();
+    // $movie->showMovie($_GET['title']);
+    echo $movie->searchFilm($_GET['title']);
 }
 
 if ($_GET['platform']) {

@@ -16,7 +16,7 @@ class FilmDB
     function searchFilm(String $title): String
     {
         $sql = $this->connect->prepare('SELECT * FROM pelicula WHERE titol LIKE ?');
-        $sql->execute(["{$title}%"]);
+        $sql->execute(["%{$title}%"]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         return json_encode($result);
     }
