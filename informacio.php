@@ -29,5 +29,4 @@ if ($_GET['genre']) {
     // $movies = json_decode($movie->getFilmsByGenre($_GET['genre']), true);
 
 }
-
 ?>

@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript test</title>
     <link rel="stylesheet" href="src/css/header.css">
+    <link rel="stylesheet" href="src/css/content.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="src/js/showData.js"></script>
 </head>
@@ -11,10 +12,34 @@
     <header>
         <a id="title" href="http://imdbcutre.test">IMDb Cutre</a>
         <div class="search-bar">
-            <input id="search-input" type="text"  placeholder="Buscador...">
+            <input id="search-input" type="text" onfocus="this.value=''" placeholder="Buscador...">
             <button id="search-btn" type="button" onclick="showMovies()"><i class="fa fa-search"></i></button>
         </div>
-        <p id="demo"></p>
     </header>
+
+    <div class="row">
+        <div class="col" id="film1">
+            <img src="" alt="error" id="img1">
+            <div class="text-img">
+                <h4 id="title1"></h4>
+            </div>
+        </div>
+        <div class="col" id="film2">
+            <img src="" alt="error" id="img2">
+            <div class="text-img">
+                <h4 id="title2"></h4>
+            </div>
+        </div>
+    </div>
+
+        <!-- <div>
+        <h1 id="title1"></h1>
+        <p class="films" id="film1"></p>
+    </div>
+
+    <div>
+        <h1 id="title2"></h1>
+        <p class="films" id="film2"></p>
+    </div> -->
 </body>
 </html>
