@@ -7,21 +7,41 @@ header('Content-Type: application/json');
 // error_reporting(E_ALL);
 
 use MyApp\includes\FilmDB as FILMDB;
-use MyApp\includes\PlatformDB as PLATFORMDB;
+use MyApp\includes\PlatformDB as PLATFORM;
 use MyApp\includes\MostrarPelicula as SHOWFILM;
 use MyApp\includes\GenreDB as GENREDB;
 
+// Show all films for HomePage
+if(isset($_GET['home'])){
+    $movies = new FILMDB();
+    echo $movies->getFilms();
+}
+
+// Search Films by title
+if ($_GET['search']) {
+    $movie = new FILMDB();
+    echo $movie->searchFilm($_GET['search']);
+}
+
+// Get 1 film by title for MoviePage
 if ($_GET['title']) {
     $movie = new FILMDB();
-    // $movie->showMovie($_GET['title']);
     echo $movie->searchFilm($_GET['title']);
 }
 
+// Search Films by Platform
 if ($_GET['platform']) {
     $movie = new showFilm();
     $movie->showMovie($_GET['platform']); // Not definitive (have to change)
 }
 
+// Get all platforms
+if(isset($_GET['platforms'])){
+    $platforms = new PLATFORM();
+    echo $platforms->getPlatforms();
+}
+
+// Search Films by Genre
 if ($_GET['genre']) {
     $movie = new FILMDB();
     $show = new SHOWFILM();
