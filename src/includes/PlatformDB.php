@@ -40,20 +40,14 @@ class PlatformDB
         return $link;
     }
 
-    function getPlatforms(): Array
+    function getPlatforms(): String
     {
         try{
             $sql = $this->connect->prepare('SELECT * FROM plataforma');
             $sql->execute([]);
             $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-        
-            $i = 0;
-            foreach ($result as $row) {
-                $plataforma[$i] = $row['nom'];
-                $i++;
-            }
             
-            return json_encode($plataforma);
+            return json_encode($result);
         }catch(PDOException $e){
             return "ERROR: {$e->getMessage()}";
         }
