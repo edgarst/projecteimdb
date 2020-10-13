@@ -1,4 +1,3 @@
-/* Form */
 .form-movie *{
     box-sizing: border-box;
 }
@@ -37,6 +36,11 @@
 .movie-data[type=file]{
     border: none;
     margin-left: -10px;
+}
+
+    /* Rating input */
+.movie-data[type=number]{
+    margin-top: 10px;
 }
 
     /* Form button */
