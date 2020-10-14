@@ -5,10 +5,10 @@
 .form-movie{
     background-color: #24303c;
     color: white;
-    width: 400px;
+    width: 75%;
     padding: 30px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 80px;
     border-radius: 4px;
     font-family: 'calibri';
     box-shadow: 7px 13px 37px #000;
@@ -31,6 +31,12 @@
     font-family: 'calibri';
     font-size: 18px;
     color: white;
+}
+
+.inline-data{
+    display: inline-block;
+    margin: 5px;
+    width: 44%;
 }
 
 .movie-data[type=file]{
@@ -71,6 +77,7 @@
     /* Form required fields */
 .error{
     color: red;
+    display: block;
 }
 
 .info-actors{
@@ -78,6 +85,7 @@
 }
 
 .info-box{
+    width: 25%;
     display: none;
     border: 1px solid black;
     border-radius: 4px;
@@ -85,8 +93,17 @@
     color: black;
     background-color: white;
     box-shadow: 10px -8px 9px #1c1b1c;
+    position: absolute;
 }
 
 #info-btn:hover + #actors-info{
     display: block;
+}
+
+#directors{
+    display: block;
+}
+
+#director2{
+    margin-bottom: 10px;
 }
