@@ -12,13 +12,10 @@ class Image
 
     function uploadImage(): String
     {
-        // $imageTrue = checkImage();
-        // if($imageTrue!==true){
-        //     return $imageTrue;
-        // }
-
-
-        return checkImage() ?? false; // Fix this
+        $imageTrue = checkImage();
+        if($imageTrue!==true){
+            return $imageTrue;
+        }
 
         if (move_uploaded_file($_FILES['caratula']['tmp_name'], $file)) {
             $fileName = basename($_FILES['caratula']['name']);
