@@ -1,5 +1,3 @@
-document.getElementById('search-btn').addEventListener('click', showMovies);
-
 function showMovies()
 {
     var title = document.getElementById('search-input').value;
@@ -11,7 +9,7 @@ function showMovies()
 
 function viewFilms(json)
 { 
-   resetDivs();
+   deleteClass('row');
    setFilmText(json);
 }
 
@@ -31,29 +29,29 @@ function setFilmText(json)
 function createRow()
 {
     var row = document.createElement('div');
-    row.setAttribute('class', 'row');
+    row.className = 'row';
     return row
 }
 
 function createCol()
 {
     var col = document.createElement('div');
-    col.setAttribute('class', 'col');
+    col.className = 'col';
     return col;
 }
 
 function createImg(linkImg) 
 {
     var img = document.createElement('img');
-    img.setAttribute('alt', 'error');
-    img.setAttribute('src', linkImg);
+    img.src = linkImg;
+    img.alt = 'error';
     return img;
 }
 
 function createDivTitle()
 {
     var divText = document.createElement('div');
-    divText.setAttribute('class', 'text-img');
+    divText.className = 'text-img';
     return divText;
 }
 
@@ -67,7 +65,7 @@ function createTitle(title)
 function createTitleLink(title)
 {
     var link = document.createElement('a');
-    link.setAttribute('href', 'http://imdbcutre.test/information.php?title='+title);
+    link.href = 'http://imdbcutre.test/information.php?title='+title;
     return link;
 }
 
@@ -80,10 +78,10 @@ function appendFilm(link, text, divText, col, img, row) {
     document.body.appendChild(row);
 }
 
-function resetDivs()
+function deleteClass(nameClass)
 {
-    var divs = document.getElementsByClassName('row');
-    for (var i = 0; i < divs.length; i++) {
-        document.body.removeChild(divs[i]);
-    }
+    classDelete = '.'+nameClass;
+    document.querySelectorAll(classDelete).forEach(function(deleted){
+        deleted.remove();
+    });
 }
