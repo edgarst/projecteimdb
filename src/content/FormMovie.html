@@ -35,7 +35,13 @@
             <input type="radio" name="director" id="director1" value="1"><label for="director1">1</label><br>
             <input type="radio" name="director" id="director2" value="2"><label for="director2">2</label><br>
             
-
+            <p class="info-actors">Actors:</p>
+            <div class="info-actors" id="info-btn">[?]</div>
+            <div class="info-box" id="actors-info">
+                Introduce actors comma separated following the example: <br> Scarlett Johansson, Robert Downey...
+            </div>
+            
+            <textarea name="actors" id="actors" cols="30" rows="5" class="movie-data" placeholder="Actors"></textarea>
             <input class="movie-data" type="number" name="valoracio" id="rating" placeholder="Valoració">
             <span class="error">*</span>
             <select class="movie-data" name="platform" id="platform" required></select>
