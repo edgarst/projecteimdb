@@ -39,10 +39,10 @@ function checkRadioInput()
 
 function createDirectorInputs(num)
 {
-    var placeAppend = document.getElementById('info-btn');
+    var placeAppend = document.getElementById('directors');
     for (let index = 0; index < num; index++) {
         var input = newDirectorInput(index);
-        placeAppend.parentNode.insertBefore(input, placeAppend);
+        placeAppend.appendChild(input);
     }
 }
 
