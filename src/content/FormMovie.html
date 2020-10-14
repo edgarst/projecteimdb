@@ -22,53 +22,40 @@
     <section class="form-movie" >
         <h4>Afegir nova pel·lícula</h4>
         <form method="post" action="" enctype="multipart/form-data" id="form">
-
             <div class="inline-data">
                 <span class="error">*</span>
                 <input class="movie-data" type="text" name="title" placeholder="Títol" required>
-            </div>
-
-            <div class="inline-data">
-                <span class="error">*</span>
-                <textarea class="movie-data" name="sinopsis" rows="5" placeholder="Sinopsis" required></textarea>
-            </div>
-
-            <div class="inline-data">
+                
                 <span class="error">*</span>
                 <p id="published-date">Publicació:</p>
                 <input class="movie-data" type="date" name="published" required>
-            </div>
-            
-            <div class="inline-data">
-                <div id="directors">
-                    <p>Directors:</p>
-                    <input type="radio" name="director" id="director1" value="1"><label for="director1">1</label><br>
-                    <input type="radio" name="director" id="director2" value="2"><label for="director2">2</label><br>
-                </div>
-            </div>
-            
-            <div class="inline-data">
+
                 <p class="info-actors" id="p-actors">Actors:</p>
                 <p class="info-actors" id="info-btn">[?]</p>
                 <div class="info-box" id="actors-info">
                     Introduce actors comma separated following the example: <br> Scarlett Johansson, Robert Downey...
                 </div>
                 <textarea name="actors" id="actors" cols="30" rows="5" class="movie-data" placeholder="Actors"></textarea>
-            </div>
-            
-            <div class="inline-data">
-                <input class="movie-data" type="number" name="valoracio" id="rating" placeholder="Valoració">
-            </div>
-
-            <div class="inline-data">
-                <span class="error">*</span>
-                <select class="movie-data" name="platform" id="platform" required></select>
-            </div>
-
-            <div class="inline-data">
+                
                 <span class="error">*</span>
                 <p id="caratula-text">Caràtula:</p>
                 <input class="movie-data" type="file" name="caratula" required>
+            </div>
+
+            <div class="inline-data">
+                <span class="error">*</span>
+                <textarea class="movie-data" name="sinopsis" rows="5" placeholder="Sinopsis" required></textarea>
+                
+                <div id="directors">
+                    <p>Directors:</p>
+                    <input type="radio" name="director" id="director1" value="1"><label for="director1">1</label><br>
+                    <input type="radio" name="director" id="director2" value="2"><label for="director2">2</label><br>
+                </div>
+                
+                <input class="movie-data" type="number" name="valoracio" id="rating" placeholder="Valoració">
+
+                <span class="error">*</span>
+                <select class="movie-data" name="platform" id="platform" required></select>
             </div>
             
             <span class="error">* Required fields</span>
