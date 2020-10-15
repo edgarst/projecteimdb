@@ -22,6 +22,7 @@
     <section class="form-movie" >
         <h4>Afegir nova pel·lícula</h4>
         <form method="post" action="" enctype="multipart/form-data" id="form">
+            <span class="error" id="required-fields-text">* Required fields</span>
             <div class="inline-data">
                 <span class="error">*</span>
                 <input class="movie-data" type="text" name="title" placeholder="Títol" required>
@@ -62,8 +63,7 @@
                 <p>Plataforma Streaming:</p>
                 <select class="movie-data" name="platform" id="platform" required></select>
             </div>
-            
-            <span class="error">* Required fields</span>
+
             <button type="submit">Enviar</button>
         </form>
     </section>

@@ -1,3 +1,4 @@
+    /* Form */
 .form-movie *{
     box-sizing: border-box;
 }
@@ -34,15 +35,17 @@
     color: white;
 }
 
+    /* Form columns */
 .inline-data{
-    display: inline-block;
+    /* display: inline-block; */
     margin-left: 5px;
     width: 44%;
+    float: left;
 }
 
+    /* Right form div */
 .right-form{
     margin-left: 50px;
-    height: 100%;
 }
 
 .movie-data[type=file]{
@@ -50,12 +53,14 @@
     margin-left: -10px;
 }
 
-.genre-label{
-    margin-right: 10px;
-}
-
+/* Genres div */
 #genres{
     margin-bottom: 10px;
+}
+
+.genre-label{
+    margin-right: 10px;
+    margin-left: 4px;
 }
 
     /* Rating input */
@@ -78,7 +83,6 @@
 
     /* Form text */
 .form-movie p {
-    height: 40px;
     font-size: 18px;
     line-height: 40px;
 }
@@ -94,7 +98,7 @@
     display: block;
 }
 
-    /* Info of how to introduce actors */
+    /* Info: how to introduce actors */
 .info-actors{
     display: inline-block;
 }
@@ -122,4 +126,9 @@
 
 #director2{
     margin-bottom: 10px;
+}
+
+#required-fields-text{
+    margin-bottom: 10px;
+    margin-left: 5px;
 }
