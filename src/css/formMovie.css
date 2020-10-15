@@ -24,7 +24,7 @@
     /* Form inputs */
 .movie-data {
     width: 100%;
-    background: #24303c;
+    background: inherit;
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 16px;
@@ -36,13 +36,26 @@
 
 .inline-data{
     display: inline-block;
-    margin: 5px;
+    margin-left: 5px;
     width: 44%;
+}
+
+.right-form{
+    margin-left: 50px;
+    height: 100%;
 }
 
 .movie-data[type=file]{
     border: none;
     margin-left: -10px;
+}
+
+.genre-label{
+    margin-right: 10px;
+}
+
+#genres{
+    margin-bottom: 10px;
 }
 
     /* Rating input */
@@ -81,6 +94,7 @@
     display: block;
 }
 
+    /* Info of how to introduce actors */
 .info-actors{
     display: inline-block;
 }
@@ -101,6 +115,7 @@
     display: block;
 }
 
+    /* directors div */
 #directors{
     display: block;
 }

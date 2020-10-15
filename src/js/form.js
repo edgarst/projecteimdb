@@ -1,8 +1,12 @@
 window.onload = function()
 {
-    var url = 'http://imdbcutre.test/information.php?platforms';
-    fetch(url).then(function(response){ return response.json(); })
+    var platforms = 'http://imdbcutre.test/information.php?platforms';
+    fetch(platforms).then(function(response){ return response.json(); })
     .then(function(json){ setPlatforms(json); });
+
+    var genres = 'http://imdbcutre.test/information.php?genres';
+    fetch(genres).then(function(response){ return response.json(); })
+    .then(function(genre){ setGenres(genre); });
     
     document.getElementById('director1').addEventListener('change', checkRadioInput);
     document.getElementById('director2').addEventListener('change', checkRadioInput);
@@ -12,8 +16,35 @@ function setPlatforms(json)
 {
     for (const platform of json) {
         var option = createPlatformOption(platform['nom']);
-        appendOption(option);
+        appendTo(option, 'platform');
     }
+}
+
+function setGenres(json) 
+{
+    for (const genres of json) {
+        var genre = createGenreCheck(genres['genere']);
+        var label = createLabel(genres['genere']);
+        appendTo(genre, 'genres');
+        appendTo(label, 'genres');
+    }
+}
+
+function createGenreCheck(genreName) 
+{
+    var genre = document.createElement('input');
+    genre.type = 'checkbox';
+    genre.value = genre.id = genre.name = genreName;
+    return genre;
+}
+
+function createLabel(name)
+{
+    var label = document.createElement('label');
+    label.innerHTML = name;
+    label.className = 'genre-label';
+    label.setAttribute('for', name);
+    return label;
 }
 
 function createPlatformOption(platformName)
@@ -24,9 +55,9 @@ function createPlatformOption(platformName)
     return option;
 }
 
-function appendOption(option)
+function appendTo(option, parent)
 {
-    var select = document.getElementById('platform');
+    var select = document.getElementById(parent);
     select.appendChild(option);
 }
 

@@ -35,14 +35,18 @@
                 <div class="info-box" id="actors-info">
                     Introduce actors comma separated following the example: <br> Scarlett Johansson, Robert Downey...
                 </div>
-                <textarea name="actors" id="actors" cols="30" rows="5" class="movie-data" placeholder="Actors"></textarea>
+                <textarea name="actors" id="actors" rows="5" class="movie-data" placeholder="Actors"></textarea>
                 
+                <div id="genres">
+                    <p>Gèneres:</p>
+                </div>
+
                 <span class="error">*</span>
                 <p id="caratula-text">Caràtula:</p>
                 <input class="movie-data" type="file" name="caratula" required>
             </div>
 
-            <div class="inline-data">
+            <div class="inline-data right-form">
                 <span class="error">*</span>
                 <textarea class="movie-data" name="sinopsis" rows="5" placeholder="Sinopsis" required></textarea>
                 
@@ -55,6 +59,7 @@
                 <input class="movie-data" type="number" name="valoracio" id="rating" placeholder="Valoració">
 
                 <span class="error">*</span>
+                <p>Plataforma Streaming:</p>
                 <select class="movie-data" name="platform" id="platform" required></select>
             </div>
             
