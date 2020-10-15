@@ -10,15 +10,6 @@ class MostrarPelicula
         echo '<pre>';
         print_r($movies);
         echo '</pre>';
-
-        foreach ($movies as $key => $col) {
-            foreach ($col as $key => $values) {
-                if(is_array($values)) $this->showMoviePersons($values, $key);
-                else echo "{$key}: {$values}";
-                echo "<br />";
-            }
-            echo "<br />";
-        }
     }
 
     function showMovieByGenre(String $genre): void
