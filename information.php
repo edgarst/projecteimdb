@@ -41,6 +41,12 @@ if(isset($_GET['platforms'])){
     echo $platforms->getPlatforms();
 }
 
+// Get all genres
+if(isset($_GET['genres'])){
+    $genres = new GENREDB();
+    echo $genres->getGenres();
+}
+
 // Search Films by Genre
 if ($_GET['genre']) {
     $movie = new FILMDB();
