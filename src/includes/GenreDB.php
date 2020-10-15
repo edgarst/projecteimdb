@@ -28,7 +28,6 @@ class GenreDB
 
     function getFilmID(int $idGenre): String
     {
-        var_dump($idGenre);
         $sql = $this->connect->prepare('SELECT id_pelicula FROM pelicula_genere WHERE id_genere = :idGenre');
         $sql->execute(['idGenre' => $idGenre]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
