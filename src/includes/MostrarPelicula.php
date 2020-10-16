@@ -1,7 +1,8 @@
-<?php 
-namespace MyApp\includes;
-use MyApp\includes\FilmDB as FILMDB;
-use MyApp\includes\PlatformDB as PLATFORMDB;
+<?php  namespace MyApp\includes;
+
+use MyApp\includes\FilmDB as FilmDB;
+use MyApp\includes\PlatformDB as PlatformDB;
+
 class MostrarPelicula
 {
     function showMovie(String $title): String
@@ -23,7 +24,7 @@ class MostrarPelicula
 
     function showMovieByGenre(String $genre): String
     {
-        $film = new FILMDB();
+        $film = new FilmDB();
         $movies = json_decode($film->getFilmsByGenre($genre), true);
         foreach ($movies as $movie) {
             $this->showMovie($movie['titol']);
@@ -42,8 +43,8 @@ class MostrarPelicula
 
     private function getFilmsArray(String $title): Array
     {
-        $film = new FILMDB();
-        $platform = new PLATFORMDB();
+        $film = new FilmDB();
+        $platform = new PlatformDB();
     
         $filmInfo = $film->searchFilm($title);
         $filmInfo = json_decode($filmInfo, true);
@@ -68,5 +69,3 @@ class MostrarPelicula
         return json_decode($film->filmActors($title), true);
     }
 }
-
-?>

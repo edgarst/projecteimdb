@@ -1,6 +1,8 @@
 <?php namespace MyApp\includes;
-use MyApp\includes\connectionDB as connection;
+
+use MyApp\includes\ConnectionDB as Connection;
 use PDO;
+
 class PlatformDB 
 {
     private $connect;
@@ -44,7 +46,7 @@ class PlatformDB
     {
         try{
             $sql = $this->connect->prepare('SELECT * FROM plataforma');
-            $sql->execute([]);
+            $sql->execute();
             $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
             $i = 0;
@@ -54,9 +56,8 @@ class PlatformDB
             }
             
             return json_encode($plataforma);
-        }catch(PDOException $e){
-            return "ERROR: {$e->getMessage()}";
+        } catch (PDOException $ex){
+            return "ERROR: {$ex->getMessage()}";
         }
     }
 }
-?>

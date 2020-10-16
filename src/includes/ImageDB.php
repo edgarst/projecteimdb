@@ -1,20 +1,22 @@
 <?php namespace MyApp\includes;
-use MyApp\includes\ConnectionDB as connection;
+
+use MyApp\includes\ConnectionDB as Connection;
 use PDO;
+
 class ImageDB
 {
     public $connection;
 
     public function __construct()
     {
-        $this->connection = connection::connect();
+        $this->connection = Connection::connect();
     }
 
     function getImages(): json
     {
         try{
             $sql = $this->connection->prepare('SELECT * FROM pelicula');
-            $sql->execute(array());
+            $sql->execute();
             $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
             $i = 0;
@@ -24,8 +26,8 @@ class ImageDB
             }
 
             return json_encode($images);
-        }catch(PDOException $e){
-            return "ERROR: {$e->getMessage()}";
+        } catch (PDOException $ex){
+            return "ERROR: {$ex->getMessage()}";
         }
     }
 
@@ -41,9 +43,8 @@ class ImageDB
             }
 
             return json_encode($images);
-        }catch(PDOException $e){
-            return "ERROR: {$e->getMessage()}";
+        } catch (PDOException $ex){
+            return "ERROR: {$ex->getMessage()}";
         }
     }
 }
-?>
