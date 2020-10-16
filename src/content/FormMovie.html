@@ -19,16 +19,16 @@
     </header>
     <script src="../js/search.js"></script>
 
-    <section class="form-movie" >
+    <section class="form-movie">
         <h4>Afegir nova pel·lícula</h4>
-        <form method="post" action="" enctype="multipart/form-data" id="form">
+        <form method="post" action="FormInsert.php" enctype="multipart/form-data" id="form">
             <span class="error" id="required-fields-text">* Required fields</span>
             <div class="inline-data">
                 <span class="error">*</span>
                 <input class="movie-data" type="text" name="title" placeholder="Títol" required>
                 
                 <span class="error">*</span>
-                <p id="published-date">Publicació:</p>
+                <p class="margin-top-error">Publicació:</p>
                 <input class="movie-data" type="date" name="published" required>
 
                 <p class="info-actors" id="p-actors">Actors:</p>
@@ -43,7 +43,7 @@
                 </div>
 
                 <span class="error">*</span>
-                <p id="caratula-text">Caràtula:</p>
+                <p class="margin-top-error">Caràtula:</p>
                 <input class="movie-data" type="file" name="caratula" required>
             </div>
 
@@ -60,7 +60,7 @@
                 <input class="movie-data" type="number" name="valoracio" id="rating" placeholder="Valoració">
 
                 <span class="error">*</span>
-                <p>Plataforma Streaming:</p>
+                <p class="margin-top-error">Plataforma Streaming:</p>
                 <select class="movie-data" name="platform" id="platform" required></select>
             </div>
 

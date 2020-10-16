@@ -50,6 +50,7 @@ function createLabel(name)
 function createPlatformOption(platformName)
 {
     var option = document.createElement('option');
+    option.className = 'platform-options'
     option.value = platformName;
     option.innerHTML = platformName;
     return option;
@@ -82,6 +83,6 @@ function newDirectorInput(index)
     var input = document.createElement('input');
     input.className = 'movie-data directors';
     input.type = 'text';
-    input.placeholder = 'Director '+ ++index;
+    input.placeholder = input.name = 'Director '+ ++index;
     return input;
 }
