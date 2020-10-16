@@ -1,4 +1,4 @@
-/* Form */
+    /* Form */
 .form-movie *{
     box-sizing: border-box;
 }
@@ -6,10 +6,10 @@
 .form-movie{
     background-color: #24303c;
     color: white;
-    width: 400px;
+    width: 75%;
     padding: 30px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 80px;
     border-radius: 4px;
     font-family: 'calibri';
     box-shadow: 7px 13px 37px #000;
@@ -19,12 +19,13 @@
 .form-movie h4 {
     font-size: 22px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
     /* Form inputs */
 .movie-data {
     width: 100%;
-    background: #24303c;
+    background: inherit;
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 16px;
@@ -34,9 +35,37 @@
     color: white;
 }
 
+    /* Form columns */
+.inline-data{
+    /* display: inline-block; */
+    margin-left: 5px;
+    width: 44%;
+    float: left;
+}
+
+    /* Right form div */
+.right-form{
+    margin-left: 50px;
+}
+
 .movie-data[type=file]{
     border: none;
     margin-left: -10px;
+}
+
+/* Genres div */
+#genres{
+    margin-bottom: 10px;
+}
+
+.genre-label{
+    margin-right: 10px;
+    margin-left: 4px;
+}
+
+    /* Rating input */
+.movie-data[type=number]{
+    margin-top: 10px;
 }
 
     /* Form button */
@@ -44,6 +73,7 @@
     width: 100%;
     background: #1f53c5;
     border: none;
+    border-radius: 4px;
     padding: 12px;
     color: white;
     margin: 16px 0;
@@ -53,21 +83,52 @@
 
     /* Form text */
 .form-movie p {
-    height: 40px;
     font-size: 18px;
     line-height: 40px;
 }
 
-    /* Form image text */
-#caratula-text{
+    /* Form image and published text */
+#caratula-text, #published-date{
     margin-top: -12px;
 }
 
     /* Form required fields */
 .error{
     color: red;
+    display: block;
 }
 
-#published-date{
-    margin-top: -12px;
+    /* Info: how to introduce actors */
+.info-actors{
+    display: inline-block;
+}
+
+.info-box{
+    width: 25%;
+    display: none;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    color: black;
+    background-color: white;
+    box-shadow: 10px -8px 9px #1c1b1c;
+    position: absolute;
+}
+
+#info-btn:hover + #actors-info{
+    display: block;
+}
+
+    /* directors div */
+#directors{
+    display: block;
+}
+
+#director2{
+    margin-bottom: 10px;
+}
+
+#required-fields-text{
+    margin-bottom: 10px;
+    margin-left: 5px;
 }

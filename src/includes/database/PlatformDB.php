@@ -1,6 +1,5 @@
-<?php namespace MyApp\includes;
-
-use MyApp\includes\ConnectionDB as Connection;
+<?php namespace MyApp\includes\database;
+use MyApp\includes\database\ConnectionDB as CONNECTION;
 use PDO;
 
 class PlatformDB 
@@ -9,7 +8,7 @@ class PlatformDB
 
     public function __construct()
     {
-        $this->connect = connection::connect();
+        $this->connect = CONNECTION::connect();
     }
 
     function getPlatformID(String $platform): int
@@ -42,22 +41,16 @@ class PlatformDB
         return $link;
     }
 
-    function getPlatforms(): Array
+    function getPlatforms(): String
     {
         try{
             $sql = $this->connect->prepare('SELECT * FROM plataforma');
             $sql->execute();
             $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-        
-            $i = 0;
-            foreach ($result as $row) {
-                $plataforma[$i] = $row['nom'];
-                $i++;
-            }
             
-            return json_encode($plataforma);
-        } catch (PDOException $ex){
-            return "ERROR: {$ex->getMessage()}";
+            return json_encode($result);
+        }catch(PDOException $e){
+            return "ERROR: {$e->getMessage()}";
         }
     }
 }
