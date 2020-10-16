@@ -1,7 +1,4 @@
 <?php 
-    // Streaming platform query
-    $platformDB = new PlatformDB();
-    $plataforma = $platformDB->getPlatforms();
 
     // Check for errors
     $title_error = $sinopsis_error = $img_error = "";
