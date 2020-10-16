@@ -1,7 +1,8 @@
 <?php namespace MyApp\includes\database;
 use PDO;
 
-class ConnectionDB{
+class ConnectionDB
+{
 
     public static function connect()
     {
