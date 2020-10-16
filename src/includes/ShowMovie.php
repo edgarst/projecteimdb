@@ -2,7 +2,8 @@
 namespace MyApp\includes;
 use MyApp\includes\FilmDB as FILMDB;
 use MyApp\includes\PlatformDB as PLATFORMDB;
-class MostrarPelicula
+
+class ShowMovie
 {
     function showMovie(String $title): void
     {
