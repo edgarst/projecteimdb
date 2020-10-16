@@ -1,19 +1,21 @@
 <?php namespace MyApp\includes;
-use MyApp\includes\ConnectionDB as CONNECTION;
-use MyApp\includes\PlatformDB as PLATFORMDB;
+
+use MyApp\includes\ConnectionDB as Connection;
+use MyApp\includes\PlatformDB as PlatformDB;
+
 class AfegirPelicula
 {
     private $connexio;
 
     public function __construct()
     {
-        $this->connexio = CONNECTION::connect();
+        $this->connexio = Connection::connect();
     }
 
-    function add(FILM $film): String
+    function add(Film $film): String
     {
         $release = date('Y', strtotime($film->getRelease()));
-        $platform = PLATFORMDB::getPlatformID($film->getPlatform());
+        $platform = PlatformDB::getPlatformID($film->getPlatform());
 
         try {
             $insertMovie = $this->connexio->prepare('INSERT INTO pelicula(titol, sinopsis, valoracio, publicacio, plataforma, caratula)
@@ -25,4 +27,3 @@ class AfegirPelicula
         }
     }
 }
-?>

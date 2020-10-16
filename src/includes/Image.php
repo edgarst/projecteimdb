@@ -12,13 +12,7 @@ class Image
 
     function uploadImage(): String
     {
-        // $imageTrue = checkImage();
-        // if($imageTrue!==true){
-        //     return $imageTrue;
-        // }
-
-
-        return checkImage() ?? false; // Fix this
+        return _checkImage() ?? false; // Fix this
 
         if (move_uploaded_file($_FILES['caratula']['tmp_name'], $file)) {
             $fileName = basename($_FILES['caratula']['name']);
@@ -29,7 +23,7 @@ class Image
     }
     
     // Image Comprovation
-    private function checkImage(): String
+    private function _checkImage(): String
     {
         // It's an image?
         if(isset($_POST['submit'])) {
@@ -50,4 +44,3 @@ class Image
         }
     }
 }
-?>
