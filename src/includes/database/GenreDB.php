@@ -1,6 +1,7 @@
-<?php namespace MyApp\includes;
-use MyApp\includes\connectionDB as CONNECTION;
+<?php namespace MyApp\includes\database;
+use MyApp\includes\database\ConnectionDB as CONNECTION;
 use PDO;
+
 class GenreDB
 {
     private $connect;

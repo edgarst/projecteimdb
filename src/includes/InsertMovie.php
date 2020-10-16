@@ -1,6 +1,6 @@
 <?php namespace MyApp\includes;
-use MyApp\includes\ConnectionDB as CONNECTION;
-use MyApp\includes\PlatformDB as PLATFORMDB;
+use MyApp\includes\database\ConnectionDB as CONNECTION;
+use MyApp\includes\database\PlatformDB as PLATFORMDB;
 use PDO;
 
 class InsertMovie

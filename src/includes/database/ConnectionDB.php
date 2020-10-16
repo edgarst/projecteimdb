@@ -1,4 +1,4 @@
-<?php namespace MyApp\includes;
+<?php namespace MyApp\includes\database;
 use PDO;
 
 class ConnectionDB{

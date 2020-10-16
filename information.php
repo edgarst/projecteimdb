@@ -6,10 +6,10 @@ header('Content-Type: application/json');
 // ini_set('display_startup_errors', '1');
 // error_reporting(E_ALL);
 
-use MyApp\includes\FilmDB as FILMDB;
-use MyApp\includes\PlatformDB as PLATFORM;
-use MyApp\includes\MostrarPelicula as SHOWFILM;
-use MyApp\includes\GenreDB as GENREDB;
+use MyApp\includes\database\FilmDB as FILMDB;
+use MyApp\includes\database\PlatformDB as PLATFORM;
+use MyApp\includes\database\GenreDB as GENREDB;
+use MyApp\includes\ShowMovie as SHOWFILM;
 
 // Show all films for HomePage
 if(isset($_GET['home'])){

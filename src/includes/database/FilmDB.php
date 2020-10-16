@@ -1,16 +1,19 @@
-<?php namespace MyApp\includes;
-use MyApp\includes\connectionDB as CONNECTION;
-use MyApp\includes\PlatformDB as PLATFORM;
-use MyApp\includes\GenreDB as GENRE;
+<?php namespace MyApp\includes\database;
+use MyApp\includes\database\connectionDB as CONNECTION;
+use MyApp\includes\database\PlatformDB as PLATFORM;
+use MyApp\includes\database\GenreDB as GENRE;
 use MyApp\includes\Film as FILM;
 use PDO;
+
 class FilmDB
 {
     private $connect;
+    private $film;
 
-    public function __construct()
+    public function __construct(FILM $film)
     {
         $this->connect = CONNECTION::connect();
+        $this->film = $film;
     }
 
     function searchFilm(String $title): String
@@ -21,16 +24,17 @@ class FilmDB
         return json_encode($result);
     }
 
-    function insertFilm(FILM $film): void
+    function insertFilm(): void
     {
+        $platformDB = new PLATFORM();
+        $platform = $platformDB->getPlatformID($this->film->getPlatform());
         $release = date('Y', strtotime($film->getRelease()));
-        $platform = PLATFORM::getPlatformID($film->getPlatform());
 
         $insert = $this->connect->prepare('INSERT INTO pelicula(titol, sinopsis, valoracio, publicacio, plataforma, caratula)
         VALUES (?,?,?,?,?,?)');
 
-        $insert->execute(['titol' => $film->getTitle(), 'sinopsis' => $film->getSinopsis(), 'valoracio' => $film->getRating(), 
-            'publicacio' => $release, 'plataforma' => $platform, 'caratula' => $film->getImg()]);
+        $insert->execute(['titol' => $this->ilm->getTitle(), 'sinopsis' => $this->film->getSinopsis(), 'valoracio' => $this->film->getRating(), 
+            'publicacio' => $this->release, 'plataforma' => $this->platform, 'caratula' => $this->film->getImg()]);
     }
 
     function getFilms(): String
@@ -42,9 +46,9 @@ class FilmDB
         return json_encode($result);
     }
 
-    function filmDirectors(String $title): String
+    function filmDirectors(): String
     {
-        $directors = json_decode($this->getPersonsID($title, 'director'), true);
+        $directors = json_decode($this->getPersonsID($this->film->getTitle(), 'director'), true);
         $directorsID = implode(',',$this->fetchPersons($directors, 'director'));
 
         $sql = $this->connect->prepare("SELECT nom, cognom FROM director WHERE id IN ({$directorsID})");
@@ -54,9 +58,9 @@ class FilmDB
         return json_encode($result);
     }
 
-    function filmActors(String $title): String
+    function filmActors(): String
     {
-        $actors = json_decode($this->getPersonsID($title, 'actor'), true);
+        $actors = json_decode($this->getPersonsID($this->film->getTitle(), 'actor'), true);
         $actorsID = implode(',',$this->fetchPersons($actors, 'actor'));
         
         $sql = $this->connect->prepare("SELECT nom, cognom FROM actor WHERE id IN ({$actorsID})");

@@ -1,7 +1,7 @@
 <?php 
 namespace MyApp\includes;
-use MyApp\includes\FilmDB as FILMDB;
-use MyApp\includes\PlatformDB as PLATFORMDB;
+use MyApp\includes\database\FilmDB as FILMDB;
+use MyApp\includes\database\PlatformDB as PLATFORMDB;
 
 class ShowMovie
 {

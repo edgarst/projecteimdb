@@ -1,13 +1,14 @@
-<?php namespace MyApp\includes;
-use MyApp\includes\connectionDB as connection;
+<?php namespace MyApp\includes\database;
+use MyApp\includes\database\ConnectionDB as CONNECTION;
 use PDO;
+
 class PlatformDB 
 {
     private $connect;
 
     public function __construct()
     {
-        $this->connect = connection::connect();
+        $this->connect = CONNECTION::connect();
     }
 
     function getPlatformID(String $platform): int

@@ -1,5 +1,6 @@
 <?php namespace MyApp\includes;
-use MyApp\includes\ConnectionDB as CONNECTION;
+use MyApp\includes\database\ConnectionDB as CONNECTION;
+
 class EditMovie
 {
     private $connexio;
