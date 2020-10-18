@@ -5,12 +5,10 @@ use MyApp\includes\database\PlatformDB as PLATFORMDB;
 
 class ShowMovie
 {
-    function showMovie(String $title): void
+    function showMovie(String $title): String
     {
-        $movies = $this->getFilmsArray($title);
-        echo '<pre>';
-        print_r($movies);
-        echo '</pre>';
+        $movies = $this->_getFilmsArray($title);
+        return json_encode($movies);
     }
 
     function showMovieByGenre(String $genre): void
@@ -22,17 +20,7 @@ class ShowMovie
         }
     }
 
-    private function showMoviePersons(Array $moviePersons, String $key): void
-    {
-        echo "{$key}: ";
-        for ($i=0; $i < count($moviePersons) ; $i++) { 
-            echo "{$moviePersons[$i]['nom']} ";
-            echo "{$moviePersons[$i]['cognom']}";
-            if($i < count($moviePersons)-1) echo ', ';
-        }
-    }
-
-    private function getFilmsArray(String $title): Array
+    private function _getFilmsArray(String $title): Array
     {
         $film = new FILMDB();
         $platform = new PLATFORMDB();
@@ -42,20 +30,20 @@ class ShowMovie
 
         foreach ($filmInfo as $key => $value) {
             $movies[$value['id']] = $value;
-            $movies[$value['id']]['directors'] = $this->Directors($film, $title);
-            $movies[$value['id']]['actors'] = $this->Actors($film, $title);
+            $movies[$value['id']]['directors'] = $this->_directors($film, $title);
+            $movies[$value['id']]['actors'] = $this->_actors($film, $title);
             $movies[$value['id']]['plataforma'] = $platform->getPlatformName($movies[$value['id']]['plataforma']);
         }
 
         return $movies;
     }
 
-    private function Directors(FILMDB $film, String $title): Array
+    private function _directors(FILMDB $film, String $title): Array
     {
         return json_decode($film->filmDirectors($title), true);
     }
 
-    private function Actors(FILMDB $film, String $title): Array
+    private function _actors(FILMDB $film, String $title): Array
     {
         return json_decode($film->filmActors($title), true);
     }
