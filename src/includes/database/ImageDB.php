@@ -1,6 +1,7 @@
-<?php namespace MyApp\includes;
-use MyApp\includes\ConnectionDB as connection;
+<?php namespace MyApp\includes\database;
+use MyApp\includes\database\ConnectionDB as connection;
 use PDO;
+
 class ImageDB
 {
     public $connection;
