@@ -7,7 +7,12 @@ class Image
     public function __construct()
     {
         $imgFolder = 'src/content/img/';
-        $file = $imgFolder . basename($img['caratula']['name']);
+        $file = $imgFolder . basename($_FILES['caratula']['name']);
+    }
+
+    function getFileUrl(): String
+    {
+        return $this->file;
     }
 
     function uploadImage(): String
