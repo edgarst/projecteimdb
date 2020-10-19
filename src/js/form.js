@@ -1,3 +1,4 @@
+    // On load page
 window.onload = function()
 {
     var platforms = 'http://imdbcutre.test/information.php?platforms';
@@ -8,10 +9,20 @@ window.onload = function()
     fetch(genres).then(function(response){ return response.json(); })
     .then(function(genre){ setGenres(genre); });
     
-    document.getElementById('director1').addEventListener('change', checkRadioInput);
-    document.getElementById('director2').addEventListener('change', checkRadioInput);
+    createEvents();
 }
 
+function createEvents()
+{
+    document.getElementById('director1').addEventListener('change', checkRadioInput);
+    document.getElementById('director2').addEventListener('change', checkRadioInput);
+
+
+    // document.getElementById('form').addEventListener('action', getFormData);
+    // document.getElementById('submit').addEventListener('submit', preventRefreshPage);
+}
+
+    // Generate inputs (genre, platform, director)
 function setPlatforms(json)
 {
     for (const platform of json) {
@@ -85,4 +96,36 @@ function newDirectorInput(index)
     input.type = 'text';
     input.placeholder = input.name = 'Director '+ ++index;
     return input;
+}
+
+    // Get form data
+// function preventRefreshPage()
+// {
+//     return false;
+// }
+
+function getFormData()
+{
+    var form = document.getElementById('form');
+    var formAction = 'http:/imbdcutre.test/information.php?insertForm';
+    var formInputs = form.querySelectorAll('input');
+    var formData = createFormData(formInputs);
+    sendData(form, formData, formAction);
+}
+
+function createFormData(formInputs)
+{
+    var formData = new FormData();
+    for (let index = 0; index < formInputs.length; index++) {
+        formData.append(formInputs[index].name, formInputs[index].value);
+    }
+    return formData;
+}
+
+function sendData(form, formData, formAction)
+{
+    var httpRequest = new XMLHttpRequest();
+    var formMethod = form.getAttribute('method');
+    httpRequest.open(formMethod, formAction);
+    httpRequest.send(formData);
 }
