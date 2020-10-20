@@ -6,26 +6,29 @@ use MyApp\includes\Image as IMAGE;
 
 class FormInsert
 {
+    private $form;
     private $film;
     private $image;
 
-    public function __construct()
+    public function __construct($form)
     {
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $this->image = new IMAGE();
-            $this->createFilm();
-            $filmDB = new FILMDB($this->film);
-            $filmDB->insertFilm();
-        }
-
+        $this->form = $form;
         // $img_error = $image->check_image($_FILES);
+    }
+
+    function insertForm(): void
+    {
+        $this->image = new IMAGE();
+        $this->createFilm();
+        $filmDB = new FILMDB($this->film);
+        $filmDB->insertFilm();
     }
 
     function createFilm(): void
     {
         $img = $this->image->getFileUrl();
-        $this->film = new FILM($_POST['title'], $_POST['sinopsis'], $_POST['release'], 
-            $_POST['rating'], $_POST['platform'], $img);
+        $this->film = new FILM($this->form['title'], $this->form['sinopsis'], $this->form['release'], 
+            $this->form['rating'], $this->form['platform'], $img);
     }
 }
 ?>

@@ -10,6 +10,7 @@ use MyApp\includes\database\FilmDB as FILMDB;
 use MyApp\includes\database\PlatformDB as PLATFORM;
 use MyApp\includes\database\GenreDB as GENREDB;
 use MyApp\includes\ShowMovie as SHOWFILM;
+use MyApp\includes\FormInsert as FORM;
 
 // Show all films for HomePage
 if(isset($_GET['home'])){
@@ -18,13 +19,13 @@ if(isset($_GET['home'])){
 }
 
 // Search Films by title
-if ($_GET['search']) {
+if (isset($_GET['search'])) {
     $movie = new FILMDB();
     echo $movie->searchFilm($_GET['search']);
 }
 
 // Get 1 film by title for MoviePage
-if ($_GET['title']) {
+if (isset($_GET['title'])) {
     $movie = new FILMDB();
     echo $movie->searchFilm($_GET['title']);
 }
@@ -55,4 +56,11 @@ if ($_GET['genre']) {
     // $movies = json_decode($movie->getFilmsByGenre($_GET['genre']), true);
 
 }
+
+if(isset($_GET['insertForm'])){
+    $form = $_POST['insertFilm'];
+    $formInsert = new FORM($form);
+    $formInsert->insertForm();
+}
+
 ?>

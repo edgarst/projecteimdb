@@ -17,9 +17,7 @@ function createEvents()
     document.getElementById('director1').addEventListener('change', checkRadioInput);
     document.getElementById('director2').addEventListener('change', checkRadioInput);
 
-
-    // document.getElementById('form').addEventListener('action', getFormData);
-    // document.getElementById('submit').addEventListener('submit', preventRefreshPage);
+    document.getElementById('submit').addEventListener('click', getFormData);
 }
 
     // Generate inputs (genre, platform, director)
@@ -99,33 +97,41 @@ function newDirectorInput(index)
 }
 
     // Get form data
-// function preventRefreshPage()
-// {
-//     return false;
-// }
-
 function getFormData()
 {
     var form = document.getElementById('form');
-    var formAction = 'http:/imbdcutre.test/information.php?insertForm';
+    var formAction = '../../information.php?insertForm';
     var formInputs = form.querySelectorAll('input');
-    var formData = createFormData(formInputs);
+    var formData = createObject(formInputs);
     sendData(form, formData, formAction);
 }
-
+/*
 function createFormData(formInputs)
 {
     var formData = new FormData();
     for (let index = 0; index < formInputs.length; index++) {
         formData.append(formInputs[index].name, formInputs[index].value);
     }
+
     return formData;
+}
+*/
+function createObject(formInputs)
+{
+    var film = new Object();
+    for (let index = 0; index < formInputs.length; index++) {
+        film[formInputs[index].name] = formInputs[index].value;
+    }
+
+    return JSON.stringify(film);
 }
 
 function sendData(form, formData, formAction)
 {
+    var upload = "insertFilm="+formData;
     var httpRequest = new XMLHttpRequest();
     var formMethod = form.getAttribute('method');
     httpRequest.open(formMethod, formAction);
-    httpRequest.send(formData);
+    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    httpRequest.send(upload);
 }
