@@ -101,34 +101,56 @@ function getFormData()
 {
     var form = document.getElementById('form');
     var formAction = '../../information.php?insertForm';
-    var formInputs = form.querySelectorAll('input');
-    var formData = createObject(formInputs);
-    sendData(form, formData, formAction);
-}
-/*
-function createFormData(formInputs)
-{
-    var formData = new FormData();
-    for (let index = 0; index < formInputs.length; index++) {
-        formData.append(formInputs[index].name, formInputs[index].value);
-    }
-
-    return formData;
-}
-*/
-function createObject(formInputs)
-{
     var film = new Object();
-    for (let index = 0; index < formInputs.length; index++) {
-        film[formInputs[index].name] = formInputs[index].value;
-    }
+    film = addData(film, form);
+    sendData(form, film, formAction);
+}
 
+function addData(film, form)
+{
+    film = addInputs(film, form);
+    film = addTextArea(film, form);
+    film = addPlatform(film);
     return JSON.stringify(film);
 }
 
-function sendData(form, formData, formAction)
+    // Add input data (title, file, release_date...)
+function addInputs(film, form)
 {
-    var upload = "insertFilm="+formData;
+    var formInputs = form.querySelectorAll('input');
+    for (let index = 0; index < formInputs.length; index++) {
+        film[formInputs[index].name] = formInputs[index].value;
+    }
+    
+    return film;
+}
+
+    // Add textArea data (Actors, sinopsis)
+function addTextArea(film, form)
+{
+    var textArea = form.querySelectorAll('textarea');
+    var index = 0;
+    while (index<textArea.length) {
+        if(textArea[index].value !== ""){
+            film[textArea[index].name] = textArea[index].value;
+        } 
+        index++;
+    }
+
+    return film;
+}
+
+    // Add platform data
+function addPlatform(film)
+{
+    var platform = document.getElementById('platform').value;
+    film['platform'] = platform;
+    return film;
+}
+
+function sendData(form, film, formAction)
+{
+    var upload = "insertFilm="+film;
     var httpRequest = new XMLHttpRequest();
     var formMethod = form.getAttribute('method');
     httpRequest.open(formMethod, formAction);

@@ -31,7 +31,7 @@ if (isset($_GET['title'])) {
 }
 
 // Search Films by Platform
-if ($_GET['platform']) {
+if (isset($_GET['platform'])) {
     $movie = new showFilm();
     $movie->showMovie($_GET['platform']); // Not definitive (have to change)
 }
@@ -49,7 +49,7 @@ if(isset($_GET['genres'])){
 }
 
 // Search Films by Genre
-if ($_GET['genre']) {
+if (isset($_GET['genre'])) {
     $movie = new FILMDB();
     $show = new SHOWFILM();
     $show->showMovieByGenre($_GET['genre']);
@@ -59,6 +59,7 @@ if ($_GET['genre']) {
 
 if(isset($_GET['insertForm'])){
     $form = $_POST['insertFilm'];
+    $form = json_decode($form, true);
     $formInsert = new FORM($form);
     $formInsert->insertForm();
 }
