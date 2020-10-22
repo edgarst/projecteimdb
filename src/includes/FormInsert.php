@@ -18,7 +18,9 @@ class FormInsert
 
     function insertForm(): void
     {
-        $this->image = new IMAGE();
+        $imgName = $this->form['caratula'];
+        $this->image = new IMAGE($imgName);
+        $this->image->uploadImage();
         $this->createFilm();
         $filmDB = new FILMDB($this->film);
         $filmDB->insertFilm();

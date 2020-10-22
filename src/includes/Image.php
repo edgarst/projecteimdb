@@ -4,10 +4,10 @@ class Image
 {
     private $file;
 
-    public function __construct()
+    public function __construct($imgName)
     {
         $imgFolder = 'src/content/img/';
-        $file = $imgFolder . basename($_FILES['caratula']['name']);
+        $this->file = $imgFolder . basename($imgName);
     }
 
     function getFileUrl(): String
@@ -17,13 +17,13 @@ class Image
 
     function uploadImage(): String
     {
-        $imageTrue = checkImage();
-        if($imageTrue!==true){
+        $imageTrue = $this->checkImage(); // true = (String) 1
+        if($imageTrue!=='1'){
             return $imageTrue;
         }
 
-        if (move_uploaded_file($_FILES['caratula']['tmp_name'], $file)) {
-            $fileName = basename($_FILES['caratula']['name']);
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $this->file)) {
+            $fileName = basename($_FILES['file']['name']);
             return "The file {$fileName} has been uploaded.";
         }
 
@@ -34,22 +34,23 @@ class Image
     private function checkImage(): String
     {
         // It's an image?
-        if(isset($_POST['submit'])) {
-            $check = getimagesize($_FILES['caratula']['tmp_name']);
-            if($check == false) {
-                return 'File is not an image.';
-            }
+        $check = getimagesize($_FILES['file']['tmp_name']);
+        if($check == false) {
+            return 'File is not an image.';
         }
+        
 
         // It already exists?
-        if (file_exists($this->file)) {
-            return 'File already exists.';
-        }
+        // if (file_exists($this->file)) {
+        //     return 'File already exists.';
+        // }
 
         // Size limitation
-        if ($_FILES['caratula']['size'] > 500000) {
+        if ($_FILES['file']['size'] > 500000) {
             return 'The file is too large.';
         }
+
+        return true;
     }
 }
 ?>

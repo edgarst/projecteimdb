@@ -100,60 +100,73 @@ function newDirectorInput(index)
 function getFormData()
 {
     var form = document.getElementById('form');
-    var formAction = '../../information.php?insertForm';
-    var film = new Object();
-    film = addData(film, form);
-    sendData(form, film, formAction);
+    var formData = new FormData();
+    formData = addData(formData, form);
+    sendData(formData);
 }
 
-function addData(film, form)
+function addData(formData, form)
 {
-    film = addInputs(film, form);
-    film = addTextArea(film, form);
-    film = addPlatform(film);
-    return JSON.stringify(film);
+    formData = addInputs(formData, form);
+    formData = addTextArea(formData, form);
+    formData = addPlatform(formData);
+    formData = getFormImage(formData);
+    return formData;
+}
+
+function getFormImage(formData)
+{
+    var file = document.querySelector('[type=file]').files[0];
+    formData.append('file', file);
+    
+    return formData;
 }
 
     // Add input data (title, file, release_date...)
-function addInputs(film, form)
+function addInputs(formData, form)
 {
-    var formInputs = form.querySelectorAll('input');
+    var formInputs = getInputs(form);
     for (let index = 0; index < formInputs.length; index++) {
-        film[formInputs[index].name] = formInputs[index].value;
+        formData.append(formInputs[index].name, formInputs[index].value);
     }
     
-    return film;
+    return formData;
+}
+
+    // Filter inputs, exclude checkbox not checked, radio inputs...
+function getInputs(form)
+{
+    var formInputs = form.querySelectorAll('input');
+    return formInputs;
 }
 
     // Add textArea data (Actors, sinopsis)
-function addTextArea(film, form)
+function addTextArea(formData, form)
 {
     var textArea = form.querySelectorAll('textarea');
     var index = 0;
     while (index<textArea.length) {
         if(textArea[index].value !== ""){
-            film[textArea[index].name] = textArea[index].value;
+            formData.append(textArea[index].name, textArea[index].value);
         } 
         index++;
     }
 
-    return film;
+    return formData;
 }
 
     // Add platform data
-function addPlatform(film)
+function addPlatform(formData)
 {
     var platform = document.getElementById('platform').value;
-    film['platform'] = platform;
-    return film;
+    formData.append('platform', platform);
+    return formData;
 }
 
-function sendData(form, film, formAction)
+function sendData(formData)
 {
-    var upload = "insertFilm="+film;
-    var httpRequest = new XMLHttpRequest();
-    var formMethod = form.getAttribute('method');
-    httpRequest.open(formMethod, formAction);
-    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    httpRequest.send(upload);
+    fetch('http://imdbcutre.test/information.php?insertForm', {
+        method: 'POST',
+        body: formData,
+    });
 }

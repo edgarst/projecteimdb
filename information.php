@@ -58,8 +58,7 @@ if (isset($_GET['genre'])) {
 }
 
 if(isset($_GET['insertForm'])){
-    $form = $_POST['insertFilm'];
-    $form = json_decode($form, true);
+    $form = $_POST;
     $formInsert = new FORM($form);
     $formInsert->insertForm();
 }
