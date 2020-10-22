@@ -28,13 +28,13 @@ class FilmDB
     {
         $platformDB = new PLATFORM();
         $platform = $platformDB->getPlatformID($this->film->getPlatform());
-        $release = date('Y', strtotime($film->getRelease()));
+        $release = date('Y', strtotime($this->film->getRelease()));
 
         $insert = $this->connect->prepare('INSERT INTO pelicula(titol, sinopsis, valoracio, publicacio, plataforma, caratula)
         VALUES (?,?,?,?,?,?)');
 
-        $insert->execute(['titol' => $this->ilm->getTitle(), 'sinopsis' => $this->film->getSinopsis(), 'valoracio' => $this->film->getRating(), 
-            'publicacio' => $this->release, 'plataforma' => $this->platform, 'caratula' => $this->film->getImg()]);
+        $insert->execute([$this->film->getTitle(), $this->film->getSinopsis(), $this->film->getRating()
+        , $release, $platform, $this->film->getImg()]);
     }
 
     function getFilms(): String
