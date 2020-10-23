@@ -10,7 +10,7 @@ class FilmDB
     private $connect;
     private $film;
 
-    public function __construct(FILM $film)
+    public function __construct(FILM $film = null)
     {
         $this->connect = CONNECTION::connect();
         $this->film = $film;
@@ -42,7 +42,7 @@ class FilmDB
         $sql = $this->connect->prepare('SELECT * FROM pelicula');
         $sql->execute([]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-
+        
         return json_encode($result);
     }
 
