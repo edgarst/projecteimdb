@@ -1,4 +1,5 @@
     // On load page
+var numDirectors; // Saves directors number
 window.onload = function()
 {
     var platforms = 'http://imdbcutre.test/information.php?platforms';
@@ -43,7 +44,8 @@ function createGenreCheck(genreName)
 {
     var genre = document.createElement('input');
     genre.type = 'checkbox';
-    genre.value = genre.id = genre.name = genreName;
+    genre.name = 'genres'
+    genre.value = genre.id = genreName;
     return genre;
 }
 
@@ -80,6 +82,7 @@ function checkRadioInput()
 
 function createDirectorInputs(num)
 {
+    numDirectors = num;
     var placeAppend = document.getElementById('directors');
     for (let index = 0; index < num; index++) {
         var input = newDirectorInput(index);
@@ -92,7 +95,8 @@ function newDirectorInput(index)
     var input = document.createElement('input');
     input.className = 'movie-data directors';
     input.type = 'text';
-    input.placeholder = input.name = 'Director '+ ++index;
+    input.name = 'directors'
+    input.placeholder = 'Director '+ ++index;
     return input;
 }
 
@@ -109,9 +113,46 @@ function addData(formData, form)
 {
     formData = addInputs(formData, form);
     formData = addTextArea(formData, form);
+    formData = addArrays(formData);
     formData = addPlatform(formData);
     formData = getFormImage(formData);
+
     return formData;
+}
+
+function addArrays(formData)
+{
+    formData = addDirectors(formData);
+    formData = addGenres(formData);
+
+    return formData;
+}
+
+function addDirectors(formData)
+{
+    var directorsInput = document.querySelectorAll('input[name="directors"]');
+    var directors = getInputArrays(directorsInput);
+    formData.append('directors', directors);
+
+    return formData;
+}
+
+function addGenres(formData)
+{
+    var genresCheck = document.querySelectorAll('input[type="checkbox"]:checked');
+    var genres = getInputArrays(genresCheck);
+    formData.append('genres', genres);
+
+    return formData;
+}
+
+function getInputArrays(inputs)
+{
+    var values = [];
+    for (let index = 0; index < inputs.length; index++) {
+        values.push(inputs[index].value);
+    }
+    return values;
 }
 
 function getFormImage(formData)
@@ -133,11 +174,36 @@ function addInputs(formData, form)
     return formData;
 }
 
-    // Filter inputs, exclude checkbox not checked, radio inputs...
+    // Get inputs (title, release_date, rating)
 function getInputs(form)
 {
     var formInputs = form.querySelectorAll('input');
-    return formInputs;
+    var inputs = [], inputType;
+
+    for (let i = 0; i < formInputs.length; i++) {
+        inputType = formInputs[i].type;
+        if (filterInputs(inputType) && !isDirector(formInputs[i].name)) {
+            inputs.push(formInputs[i]);
+        }
+    }
+
+    return inputs;
+}
+
+    // Get inputs (title, release_date, rating)
+function filterInputs(inputType)
+{
+    if (inputType === 'text' || inputType === 'date' || inputType === 'number') {
+        return true;
+    }
+    return false;
+}
+
+    // Check is director input
+function isDirector(inputName)
+{
+    if(inputName === 'director') return true; 
+    return false;
 }
 
     // Add textArea data (Actors, sinopsis)
