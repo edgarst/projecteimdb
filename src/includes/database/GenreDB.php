@@ -34,6 +34,15 @@ class GenreDB
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         return json_encode($result);
     }
+
+    function insertGenreMovie(String $genre, int $idFilm): void
+    {
+        $idGenre = $this->getGenreID($genre);
+
+        $sql = $this->connect->prepare('INSERT INTO pelicula_genere(id_pelicula, id_genere)
+        VALUES (?,?)');
+        $sql->execute([$idFilm, $idGenre]);
+    }
 }
 
 ?>
