@@ -1,3 +1,6 @@
+body{
+    background-color: grey;
+}
     /* Form */
 .form-movie *{
     box-sizing: border-box;
