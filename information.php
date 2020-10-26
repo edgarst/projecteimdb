@@ -60,7 +60,8 @@ if (isset($_GET['genre'])) {
 if(isset($_GET['insertForm'])){
     $form = $_POST;
     $formInsert = new FORM($form);
-    $formInsert->insertForm();
+    $error = $formInsert->insertForm();
+    echo json_encode($error);
 }
 
 ?>

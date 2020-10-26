@@ -24,7 +24,7 @@ class Image
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $this->file)) {
             $fileName = basename($_FILES['file']['name']);
-            return "The file {$fileName} has been uploaded.";
+            return true;
         }
 
         return 'There was an error uploading your file. Try again later.';
@@ -38,12 +38,6 @@ class Image
         if($check == false) {
             return 'File is not an image.';
         }
-        
-
-        // It already exists?
-        // if (file_exists($this->file)) {
-        //     return 'File already exists.';
-        // }
 
         // Size limitation
         if ($_FILES['file']['size'] > 500000) {

@@ -15,9 +15,6 @@ window.onload = function()
 
 function createEvents()
 {
-    document.getElementById('director1').addEventListener('change', checkRadioInput);
-    document.getElementById('director2').addEventListener('change', checkRadioInput);
-
     document.getElementById('submit').addEventListener('click', getFormData);
 }
 
@@ -73,33 +70,6 @@ function appendTo(option, parent)
     select.appendChild(option);
 }
 
-function checkRadioInput()
-{
-    var selected = document.querySelector('input[name="director"]:checked').value;
-    deleteClass('directors');
-    createDirectorInputs(selected);
-}
-
-function createDirectorInputs(num)
-{
-    numDirectors = num;
-    var placeAppend = document.getElementById('directors');
-    for (let index = 0; index < num; index++) {
-        var input = newDirectorInput(index);
-        placeAppend.appendChild(input);
-    }
-}
-
-function newDirectorInput(index)
-{
-    var input = document.createElement('input');
-    input.className = 'movie-data directors';
-    input.type = 'text';
-    input.name = 'directors'
-    input.placeholder = 'Director '+ ++index;
-    return input;
-}
-
     // Get form data
 function getFormData()
 {
@@ -113,26 +83,9 @@ function addData(formData, form)
 {
     formData = addInputs(formData, form);
     formData = addTextArea(formData, form);
-    formData = addArrays(formData);
+    formData = addGenres(formData);
     formData = addPlatform(formData);
     formData = getFormImage(formData);
-
-    return formData;
-}
-
-function addArrays(formData)
-{
-    formData = addDirectors(formData);
-    formData = addGenres(formData);
-
-    return formData;
-}
-
-function addDirectors(formData)
-{
-    var directorsInput = document.querySelectorAll('input[name="directors"]');
-    var directors = getInputArrays(directorsInput);
-    formData.append('directors', directors);
 
     return formData;
 }
@@ -182,7 +135,7 @@ function getInputs(form)
 
     for (let i = 0; i < formInputs.length; i++) {
         inputType = formInputs[i].type;
-        if (filterInputs(inputType) && !isDirector(formInputs[i].name)) {
+        if (filterInputs(inputType)) {
             inputs.push(formInputs[i]);
         }
     }
@@ -190,7 +143,7 @@ function getInputs(form)
     return inputs;
 }
 
-    // Get inputs (title, release_date, rating)
+    // Filter inputs (title, release_date, rating)
 function filterInputs(inputType)
 {
     if (inputType === 'text' || inputType === 'date' || inputType === 'number') {
@@ -199,14 +152,7 @@ function filterInputs(inputType)
     return false;
 }
 
-    // Check is director input
-function isDirector(inputName)
-{
-    if(inputName === 'director') return true; 
-    return false;
-}
-
-    // Add textArea data (Actors, sinopsis)
+    // Add textArea data (Actors, sinopsis, directors)
 function addTextArea(formData, form)
 {
     var textArea = form.querySelectorAll('textarea');
@@ -234,5 +180,26 @@ function sendData(formData)
     fetch('http://imdbcutre.test/information.php?insertForm', {
         method: 'POST',
         body: formData,
-    });
+    }).then(function(response){ return response.json() })
+    .then(function(error){ showPopUp(error) });
+}
+
+function showPopUp(error)
+{
+    console.log(error);
+    var show;
+    if(!isError(error)){
+        document.getElementById('submit').removeEventListener('click', getFormData);
+        show = error['info'];
+    } else {
+        show = error['error'];
+    }
+
+    alert(show);
+}
+
+function isError(error)
+{
+    if(('error' in error)) return true;
+    return false;
 }

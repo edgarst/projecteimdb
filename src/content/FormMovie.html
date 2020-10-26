@@ -31,8 +31,8 @@
                 <p class="margin-top-error">Publicació:</p>
                 <input class="movie-data" type="date" name="release" required>
 
-                <p class="info-actors" id="p-actors">Actors:</p>
-                <p class="info-actors" id="info-btn">[?]</p>
+                <p class="info" id="p-actors">Actors:</p>
+                <p class="info" id="info-btn">[?]</p>
                 <div class="info-box" id="actors-info">
                     Introduce actors comma separated following the example: <br> Scarlett Johansson, Robert Downey...
                 </div>
@@ -51,11 +51,12 @@
                 <span class="error">*</span>
                 <textarea class="movie-data" name="sinopsis" rows="5" placeholder="Sinopsis" required></textarea>
                 
-                <div id="directors">
-                    <p>Directors:</p>
-                    <input type="radio" name="director" id="director1" value="1"><label for="director1">1</label><br>
-                    <input type="radio" name="director" id="director2" value="2"><label for="director2">2</label><br>
+                <p class="info">Directors:</p>
+                <p class="info" id="info-director">[?]</p>
+                <div class="info-box" id="directors-info">
+                    Introduce directors comma separated following the example: <br> Joss Whedon, Anthony Russo...
                 </div>
+                <textarea name="directors" id="directors" rows="5" class="movie-data" placeholder="Directors"></textarea>
                 
                 <input class="movie-data" type="number" name="rating" id="rating" placeholder="Valoració">
 

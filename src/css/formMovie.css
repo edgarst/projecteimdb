@@ -40,7 +40,6 @@ body{
 
     /* Form columns */
 .inline-data{
-    /* display: inline-block; */
     margin-left: 5px;
     width: 44%;
     float: left;
@@ -102,7 +101,7 @@ body{
 }
 
     /* Info: how to introduce actors */
-.info-actors{
+.info{
     display: inline-block;
 }
 
@@ -122,13 +121,8 @@ body{
     display: block;
 }
 
-    /* directors div */
-#directors{
+#info-director:hover + #directors-info{
     display: block;
-}
-
-#director2{
-    margin-bottom: 10px;
 }
 
 #required-fields-text{

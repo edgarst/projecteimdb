@@ -13,16 +13,27 @@ class FormInsert
     public function __construct($form)
     {
         $this->form = $form;
-        // $img_error = $image->check_image($_FILES);
     }
 
-    function insertForm(): void
+    function insertForm(): Array
     {
-        $this->insertImage();
+        $check = $this->insertImage();
+        if($check!=='1'){ // true = (String) 1
+            return $false = [
+                'error' => $check,
+            ];
+        }
+
+        $check = 'Film inserted successful';
+
         $this->insertMovie();
         $this->insertGenres($this->form['genres']);
         $this->insertPersons($this->form['directors'], 'director');
         $this->insertPersons($this->form['actors'], 'actor');
+
+        return $true = [
+            'info' => $check,
+        ];
     }
 
     private function setFilmID(String $idFilm): void
@@ -31,11 +42,11 @@ class FormInsert
         $this->idFilm = $id[0]['id'];
     }
 
-    private function insertImage(): void
+    private function insertImage(): String
     {
         $imgName = $_FILES['file']['name'];
         $this->image = new IMAGE($imgName);
-        $this->image->uploadImage();
+        return $this->image->uploadImage();
     }
 
     private function insertMovie(): void
