@@ -37,11 +37,18 @@ class GenreDB
 
     function insertGenreMovie(String $genre, int $idFilm): void
     {
-        $idGenre = $this->getGenreID($genre);
+        $idGenre = $this->decodeGenreID($genre);
 
         $sql = $this->connect->prepare('INSERT INTO pelicula_genere(id_pelicula, id_genere)
         VALUES (?,?)');
         $sql->execute([$idFilm, $idGenre]);
+    }
+
+    function decodeGenreID(String $genre): int
+    {
+        $idGenre = $this->getGenreID($genre);
+        $idGenre = json_decode($idGenre, true);
+        return $idGenre[0]['id'];
     }
 }
 

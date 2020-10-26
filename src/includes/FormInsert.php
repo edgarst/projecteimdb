@@ -8,10 +8,7 @@ use MyApp\includes\Image as IMAGE;
 
 class FormInsert
 {
-    private $form;
-    private $film;
-    private $image;
-    private $filmDB;
+    private $form, $film, $image, $filmDB, $idFilm;
 
     public function __construct($form)
     {
@@ -21,40 +18,53 @@ class FormInsert
 
     function insertForm(): void
     {
-        $imgName = $_FILES['file']['name'];
-        $this->image = new IMAGE($imgName);
-        // $this->image->uploadImage();
-        $idMovie = $this->insertMovie();
-        $genres = $this->insertGenres($this->form['genres']);
+        $this->insertImage();
+        $this->insertMovie();
+        $this->insertGenres($this->form['genres']);
+        $this->insertPersons($this->form['directors'], 'director');
+        $this->insertPersons($this->form['actors'], 'actor');
     }
 
-    function insertMovie(): int
+    private function setFilmID(String $idFilm): void
+    {
+        $id = json_decode($idFilm, true);
+        $this->idFilm = $id[0]['id'];
+    }
+
+    private function insertImage(): void
+    {
+        $imgName = $_FILES['file']['name'];
+        $this->image = new IMAGE($imgName);
+        $this->image->uploadImage();
+    }
+
+    private function insertMovie(): void
     {
         $img = $this->image->getFileUrl();
         $this->film = new FILM($this->form['title'], $this->form['sinopsis'], $this->form['release'], 
             $this->form['rating'], $this->form['platform'], $img);
         
         $this->filmDB = new FILMDB($this->film);
-        $filmDB->insertFilm();
+        $this->filmDB->insertFilm();
+        $this->setFilmID($this->filmDB->getFilmID($this->form['title']));
     }
 
-    function insertGenres(String $genres): void
+    private function insertGenres(String $genres): void
     {
         $genreDB = new GENREDB();
         $filmGenres = explode(',', $genres);
-        $idFilm = $this->filmDB->getFilmID($this->form['title']);
 
         for ($i=0; $i < count($filmGenres); $i++) { 
             $genre = $filmGenres[$i];
-            $genreDB->insertGenreMovie($genre, $idFilm);
+            $genreDB->insertGenreMovie($genre, $this->idFilm);
         }
     }
 
-    function insertDirectors(String $directors): void
+    private function insertPersons(String $persons, String $table): void
     {
-        $directorsDB = new PERSONDB();
-        $arr_directors = explode(',', $directors);
-        $directorsDB->insertDirectors($arr_directors);
+        $personsDB = new PERSONDB();
+        $arr_persons = explode(',', $persons);
+        $personsDB->insertPersons($arr_persons, $this->idFilm, $table);
     }
 }
 ?>
