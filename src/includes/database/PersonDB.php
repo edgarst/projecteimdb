@@ -11,15 +11,22 @@ class PersonDB
         $this->connect = CONNECTION::connect();
     }
 
-    function insertPersons(Array $persons, int $idFilm, String $table): void
+    function insertPersons(Array $persons, int $idFilm, String $table): String
     {
         foreach ($persons as $valuePerson) {
             $valuePerson = trim($valuePerson);
-            $idPerson = $this->getPersonID($valuePerson, $table);
+            
+            try {
+                $idPerson = $this->getPersonID($valuePerson, $table);
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
+
             if ($idPerson<1) {
                 $this->newPerson($valuePerson, $table);
                 $idPerson = $this->getPersonID($valuePerson, $table);
             }
+
             $this->insertPersonFilm($idPerson, $idFilm, $table);
         }
     }
@@ -27,6 +34,8 @@ class PersonDB
     private function getPersonID(String $person, String $table): int
     {
         $personName = explode(' ', $person);
+        if(count($personName)>2) throw new Exception("Please follow the example when inserting {$table}");
+        
         $sql = $this->connect->prepare("SELECT id FROM {$table} WHERE nom LIKE :nom AND cognom LIKE :cognom");
         $sql->execute(['nom' => $personName[0], 'cognom' => $personName[1]]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);

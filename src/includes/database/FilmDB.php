@@ -24,7 +24,14 @@ class FilmDB
         return json_encode($result);
     }
 
-    function insertFilm(): void
+    function deleteFilm(): void
+    {
+        $idFilm = $this->getFilmID($this->film->getTitle());
+        $stmt = $this->connexio->prepare('DELETE FROM pelicula WHERE id LIKE ?');
+        $stmt->execute([$idFilm]);
+    }
+
+    function insertFilm(): String
     {
         $platformDB = new PLATFORM();
         $platform = $platformDB->getPlatformID($this->film->getPlatform());
@@ -32,9 +39,12 @@ class FilmDB
 
         $insert = $this->connect->prepare('INSERT INTO pelicula(titol, sinopsis, valoracio, publicacio, plataforma, caratula)
         VALUES (?,?,?,?,?,?)');
-
-        $insert->execute([$this->film->getTitle(), $this->film->getSinopsis(), $this->film->getRating()
-        , $release, $platform, $this->film->getImg()]);
+        
+        try {
+            $insert->execute([$this->film->getTitle(), $this->film->getSinopsis(), $this->film->getRating(), $release, $platform, $this->film->getImg()]);
+        } catch (\Exception $e) {
+            return 'Error inserting film to database. Check if the filename is too long, try again later or if the problem persist contact with an administrator';
+        }
     }
 
     function getFilms(): String
