@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Movie</title>
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/formMovie.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../js/form.js"></script>
+</head>
+<body>
+    <header>
+        <a id="title" href="http://imdbcutre.test">IMDb Cutre</a>
+        <div class="search-bar">
+            <input id="search-input" type="text" placeholder="Buscador...">
+            <button id="search-btn" type="button"><i class="fa fa-search"></i></button>
+        </div>
+        <a id="afegir-pelis" href="http://imdbcutre.test/src/content/FormMovie.html">Afegir pel·lícula</a>
+    </header>
+    <script src="../js/search.js"></script>
+
+    <section class="form-movie">
+        <h4>Afegir nova pel·lícula</h4>
+        <form method="post" enctype="multipart/form-data" id="form">
+            <span class="error" id="required-fields-text">* Required fields</span>
+            <div class="inline-data">
+                <span class="error">*</span>
+                <input class="movie-data" type="text" name="title" placeholder="Títol" required>
+                
+                <span class="error">*</span>
+                <p class="margin-top-error">Publicació:</p>
+                <input class="movie-data" type="date" name="release" required>
+
+                <p class="info" id="p-actors">Actors:</p>
+                <p class="info" id="info-btn">[?]</p>
+                <div class="info-box" id="actors-info">
+                    Introduce actors comma separated following the example: <br> Scarlett Johansson, Robert Downey...
+                </div>
+                <textarea name="actors" id="actors" rows="5" class="movie-data" placeholder="Actors"></textarea>
+                
+                <div id="genres">
+                    <p>Gèneres:</p>
+                </div>
+
+                <span class="error">*</span>
+                <p class="margin-top-error">Caràtula:</p>
+                <input class="movie-data" type="file" name="caratula" required>
+            </div>
+
+            <div class="inline-data right-form">
+                <span class="error">*</span>
+                <textarea class="movie-data" name="sinopsis" rows="5" placeholder="Sinopsis" required></textarea>
+                
+                <p class="info">Directors:</p>
+                <p class="info" id="info-director">[?]</p>
+                <div class="info-box" id="directors-info">
+                    Introduce directors comma separated following the example: <br> Joss Whedon, Anthony Russo...
+                </div>
+                <textarea name="directors" id="directors" rows="5" class="movie-data" placeholder="Directors"></textarea>
+                
+                <input class="movie-data" type="number" name="rating" id="rating" placeholder="Valoració">
+
+                <span class="error">*</span>
+                <p class="margin-top-error">Plataforma Streaming:</p>
+                <select class="movie-data" name="platform" id="platform" required></select>
+            </div>
+
+            <button id="submit" type="button">Enviar</button>
+        </form>
+    </section>
+</body>
+</html>

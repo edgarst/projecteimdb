@@ -9,3 +9,5 @@
 ### Composer ###
 vendor/*
 vendor/composer/*
+
+src/content/img/*
