@@ -1,6 +1,7 @@
-<?php namespace MyApp\includes;
-use MyApp\includes\ConnectionDB as connection;
+<?php namespace MyApp\includes\database;
+use MyApp\includes\database\ConnectionDB as connection;
 use PDO;
+
 class ImageDB
 {
     public $connection;
@@ -17,10 +18,8 @@ class ImageDB
             $sql->execute(array());
             $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
-            $i = 0;
             foreach ($result as $row) {
-                $images[$i] = $row['caratula'];
-                $i++;
+                array_push($images, $row['caratula']);
             }
 
             return json_encode($images);
