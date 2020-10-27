@@ -58,7 +58,7 @@
                 </div>
                 <textarea name="directors" id="directors" rows="5" class="movie-data" placeholder="Directors"></textarea>
                 
-                <input class="movie-data" type="number" name="rating" id="rating" placeholder="Valoració">
+                <input class="movie-data" type="number" name="rating" id="rating" placeholder="Valoració" min="1" max="10">
 
                 <span class="error">*</span>
                 <p class="margin-top-error">Plataforma Streaming:</p>
@@ -68,5 +68,12 @@
             <button id="submit" type="button">Enviar</button>
         </form>
     </section>
+
+    <div id="pop-up">
+        <div class="pop-up-content">
+            <span class="close">x</span>
+            <p id="info-error">HOLA</p>
+        </div>
+    </div>
 </body>
 </html>
