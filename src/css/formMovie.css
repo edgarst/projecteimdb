@@ -133,3 +133,7 @@ body{
 .platform-options{
     color: black;
 }
+
+textarea{
+    resize: none;
+}
