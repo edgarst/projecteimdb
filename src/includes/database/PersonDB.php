@@ -11,18 +11,13 @@ class PersonDB
         $this->connect = CONNECTION::connect();
     }
 
-    function insertPersons(Array $persons, int $idFilm, String $table): String
+    function insertPersons(Array $persons, int $idFilm, String $table): void
     {
         foreach ($persons as $valuePerson) {
             $valuePerson = trim($valuePerson);
-            
-            try {
-                $idPerson = $this->getPersonID($valuePerson, $table);
-            } catch (\Exception $e) {
-                return $e->getMessage();
-            }
+            $idPerson = $this->getPersonID($valuePerson, $table);
 
-            if ($idPerson<1) {
+            if ($idPerson === -1) {
                 $this->newPerson($valuePerson, $table);
                 $idPerson = $this->getPersonID($valuePerson, $table);
             }
@@ -34,13 +29,69 @@ class PersonDB
     private function getPersonID(String $person, String $table): int
     {
         $personName = explode(' ', $person);
-        if(count($personName)>2) throw new Exception("Please follow the example when inserting {$table}");
+
+        if(count($personName) === 1) return $this->getPersonIdOnlyName($name[0], $table);
+
+        $name = $this->getPersonName($personName);
         
-        $sql = $this->connect->prepare("SELECT id FROM {$table} WHERE nom LIKE :nom AND cognom LIKE :cognom");
-        $sql->execute(['nom' => $personName[0], 'cognom' => $personName[1]]);
+        if($table === 'actor') return $this->getActorID($personName);
+        
+        return $this->getDirectorID($personName);
+    }
+
+    private function getPersonIdOnlyName(String $name, String $table): int
+    {
+        if($table === 'actor') return $this->getActorIdOnlyName($name);
+        
+        return $this->getDirectorIdOnlyName($name);
+    }
+
+    private function getActorIdOnlyName(String $name): int
+    {
+        $sql = $this->connect->prepare('SELECT id FROM actor WHERE nom LIKE ? ORDER BY id DESC LIMIT 1'); // If there are 2 actors with same name will take the recent one
+        $sql->execute([$name]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         return $this->getID($result);
+    }
+
+    private function getDirectorIdOnlyName(String $name): int
+    {
+        $sql = $this->connect->prepare('SELECT id FROM director WHERE nom LIKE ? ORDER BY id DESC LIMIT 1'); // If there are 2 directors with same name will take the recent one
+        $sql->execute([$name]);
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        return $this->getID($result);
+    }
+
+    private function getActorID(Array $name): int
+    {
+        $sql = $this->connect->prepare('SELECT id FROM actor WHERE nom LIKE :nom AND cognom LIKE :cognom');
+        $sql->execute(['nom' => $name[0], 'cognom' => $name[1]]);
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        return $this->getID($result);
+    }
+
+    private function getDirectorID(Array $name): int
+    {
+        $sql = $this->connect->prepare('SELECT id FROM director WHERE nom LIKE :nom AND cognom LIKE :cognom');
+        $sql->execute(['nom' => $name[0], 'cognom' => $name[1]]);
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        return $this->getID($result);
+    }
+
+    private function getPersonName(Array $person): Array
+    {
+        $personName = [];
+        $personName[0] = $person[0];
+
+        $person = array_splice($person, 0, 1);
+        $lastname = implode(' ', $person);
+        $personName[1] = $lastname;
+
+        return $personName;
     }
 
     private function getID(Array $result): int
@@ -54,17 +105,60 @@ class PersonDB
     {
         $personName = explode(' ', $person);
 
-        $insert = $this->connect->prepare("INSERT INTO {$table}(nom, cognom) VALUES (?,?)");
-        $insert->execute([$personName[0], $personName[1]]);
+        if(count($personName) === 1){
+            $this->newPersonOnlyName($personName[0], $table);
+        } else {
+            if($table === 'actor') $this->newActor($personName);
+            else $this->newDirector($personName);
+        }
+    }
+
+    private function newActor(Array $actor): void
+    {
+        $insert = $this->connect->prepare('INSERT INTO actor(nom, cognom) VALUES (?,?)');
+        $insert->execute([$actor[0], $actor[1]]);
+    }
+
+    private function newDirector(Array $director): void
+    {
+        $insert = $this->connect->prepare('INSERT INTO director(nom, cognom) VALUES (?,?)');
+        $insert->execute([$director[0], $director[1]]);
+    }
+    
+    private function newPersonOnlyName(String $name, String $table): void
+    {
+        if($table === 'actor') $this->newActorOnlyName($name);
+        else $this->newDirectorOnlyName($name);
+    }
+
+    private function newActorOnlyName(String $name): void
+    {
+        $insert = $this->connect->prepare('INSERT INTO actor(nom) VALUES (?)');
+        $insert->execute([$name]);
+    }
+
+    private function newDirectorOnlyName(String $name): void
+    {
+        $insert = $this->connect->prepare('INSERT INTO director(nom) VALUES (?)');
+        $insert->execute([$name]);
     }
 
     private function insertPersonFilm(int $idPerson, int $idFilm, String $table): void
     {
-        $insert = $this->connect->prepare("INSERT INTO pelicula_{$table}(id_pelicula, id_{$table}) 
-        VALUES (?,?)");
+        if($table === 'actor') $this->insertActorFilm($idPerson, $idFilm);
+        else $this->insertDirectorFilm($idPerson, $idFilm);
+    }
+
+    private function insertActorFilm(int $idPerson, int $idFilm): void
+    {
+        $insert = $this->connect->prepare('INSERT INTO pelicula_actor(id_pelicula, id_actor) VALUES (?,?)');
+        $insert->execute([$idFilm, $idPerson]);
+    }
+
+    private function insertDirectorFilm(int $idPerson, int $idFilm): void
+    {
+        $insert = $this->connect->prepare('INSERT INTO pelicula_director(id_pelicula, id_director) VALUES (?,?)');
         $insert->execute([$idFilm, $idPerson]);
     }
 }
-
-
 ?>

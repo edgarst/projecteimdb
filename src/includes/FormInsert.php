@@ -17,31 +17,32 @@ class FormInsert
 
     function insertForm(): Array
     {
-        $check = $this->insertImage();
+        $check = $this->checkFormFields(); // Check error when upload images or if film already exists
         if($this->checkError($check)) return $this->error($check);
-        
-        $check = $this->insertMovie(); // Check errors when insert movie
+
+        $this->createFilm();
+
+        $check = $this->insertMovie(); // Check errors when inserting movie
         if($this->checkError($check)) return $this->error($check);
 
         $this->insertGenres($this->form['genres']); // Not validated because it's checkbox and values are added by programmer
-
-        $check = $this->insertPersons($this->form['directors'], 'director');
-        if($this->checkError($check)){
-            $this->filmDB->deleteFilm();
-            return $this->error($check);
-        }
-
-        $check = $this->insertPersons($this->form['actors'], 'actor');
-        if($this->checkError($check)){
-            $this->filmDB->deleteFilm();
-            return $this->error($check);
-        }
-
-        $check = 'Film inserted successful';
+        
+        if(isset($this->form['directors'])) $this->insertPersons($this->form['directors'], 'director');
+        
+        if(isset($this->form['actors'])) $this->insertPersons($this->form['actors'], 'actor');
 
         return $true = [
-            'info' => $check,
+            'info' => 'Film inserted successful',
         ];
+    }
+
+    private function createFilm(): void
+    {
+        $img = $this->image->getFileUrl();
+        $this->film = new FILM($this->form['title'], $this->form['sinopsis'], $this->form['release'], 
+            $this->form['rating'], $this->form['platform'], $img);
+        
+        $this->filmDB = new FILMDB($this->film);
     }
 
     private function checkFormFields(): String
@@ -49,26 +50,26 @@ class FormInsert
         $check = $this->insertImage(); // Check errors when insert image
         if($this->checkError($check)) return $this->error($check);
         
-        $check = $this->insertPersons($this->form['directors'], 'director');
-        if($this->checkError($check)){
-            $this->filmDB->deleteFilm();
-            return $this->error($check);
-        }
+        if($this->filmExists()) return 'This film is already in database';
 
-        $check = $this->insertPersons($this->form['actors'], 'actor');
-        if($this->checkError($check)){
-            $this->filmDB->deleteFilm();
-            return $this->error($check);
-        }
-        
         return true;
+    }
+
+    private function filmExists(): bool
+    {
+        $checkFilm = new FILMDB();
+        $result = $checkFilm->getFilmID($this->form['title']);
+        $result = json_decode($result);
+        if(!empty($result)) return true;
+
+        return false;
     }
 
     private function checkError(String $check): bool
     {
+        // true = (String) '1'
         if($check!=='1') return true;
         
-        // true = (String) 1
         return false;
     }
 
@@ -94,16 +95,11 @@ class FormInsert
 
     private function insertMovie(): String
     {
-        $img = $this->image->getFileUrl();
-        $this->film = new FILM($this->form['title'], $this->form['sinopsis'], $this->form['release'], 
-            $this->form['rating'], $this->form['platform'], $img);
-        
-        $this->filmDB = new FILMDB($this->film);
         $check = $this->filmDB->insertFilm();
-
-        if($check !== undefined) return $check;
-
+        if($this->checkError($check)) return $check; // if there is an error
+        
         $this->setFilmID($this->filmDB->getFilmID($this->form['title']));
+        return $check;
     }
 
     private function insertGenres(String $genres): void
@@ -117,11 +113,11 @@ class FormInsert
         }
     }
 
-    private function insertPersons(String $persons, String $table): String
+    private function insertPersons(String $persons, String $table): void
     {
         $personsDB = new PERSONDB();
         $arr_persons = explode(',', $persons);
-        return $personsDB->insertPersons($arr_persons, $this->idFilm, $table);
+        $personsDB->insertPersons($arr_persons, $this->idFilm, $table);
     }
 }
 ?>

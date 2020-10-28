@@ -43,8 +43,10 @@ class FilmDB
         try {
             $insert->execute([$this->film->getTitle(), $this->film->getSinopsis(), $this->film->getRating(), $release, $platform, $this->film->getImg()]);
         } catch (\Exception $e) {
-            return 'Error inserting film to database. Check if the filename is too long, try again later or if the problem persist contact with an administrator';
+            return 'Error inserting film to database. Check if the filename is too long, try again later or if the problem persist contact with an administrator.';
         }
+
+        return '1'; // 1 = okey
     }
 
     function getFilms(): String
@@ -130,6 +132,7 @@ class FilmDB
         $genreID = json_decode($genreDB->getGenreID($genre), true);
         $films = json_decode($genreDB->getFilmID($genreID[0]['id']), true);
         $filmsID = implode(',', $this->fetchPersons($films, 'pelicula'));
+
         try{
             $sql = $this->connect->prepare("SELECT titol FROM pelicula WHERE id IN ({$filmsID})");
             $sql->execute([]);
