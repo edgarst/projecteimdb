@@ -2,9 +2,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript test</title>
+    <title>IMDb Cutre</title>
     <link rel="stylesheet" href="src/css/header.css">
     <link rel="stylesheet" href="src/css/content.css">
+    <link rel="stylesheet" href="src/css/filter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="src/js/home.js"></script>
 </head>
@@ -18,6 +19,25 @@
         <a id="afegir-pelis" href="http://imdbcutre.test/src/content/FormMovie.html">Afegir pel·lícula</a>
     </header>
     <script src="src/js/search.js"></script>
+    
+    <div class="filter">
+        <h1 class="filter-title">Filtre:</h1>
+        <form method="get">
+            <div class="filter-fields" id="platform">
+                <p>Plataforma:</p>
+            </div>
 
+            <div class="filter-fields" id="genre">
+                <p>Gènere:</p>
+            </div>
+
+            <div class="filter-fields" id="release">
+                <p>Any:</p>
+            </div>
+
+            <button id="apply-filter" type="button">Aplicar filtre</button>
+
+        </form>
+    </div>
 </body>
 </html>
