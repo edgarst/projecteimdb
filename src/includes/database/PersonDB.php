@@ -30,13 +30,13 @@ class PersonDB
     {
         $personName = explode(' ', $person);
 
-        if(count($personName) === 1) return $this->getPersonIdOnlyName($name[0], $table);
+        if(count($personName) === 1) return $this->getPersonIdOnlyName($person, $table);
 
         $name = $this->getPersonName($personName);
         
-        if($table === 'actor') return $this->getActorID($personName);
+        if($table === 'actor') return $this->getActorID($name);
         
-        return $this->getDirectorID($personName);
+        return $this->getDirectorID($name);
     }
 
     private function getPersonIdOnlyName(String $name, String $table): int
