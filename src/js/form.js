@@ -16,6 +16,7 @@ window.onload = function()
 function createEvents()
 {
     document.getElementById('submit').addEventListener('click', getFormData);
+    document.getElementById('close').addEventListener('click', closePopUp);
 }
 
     // Generate inputs (genre, platform, director)
@@ -181,25 +182,36 @@ function sendData(formData)
         method: 'POST',
         body: formData,
     }).then(function(response){ return response.json() })
-    .then(function(error){ showPopUp(error) });
+    .then(function(message){ showPopUp(message) });
 }
 
-function showPopUp(error)
+function showPopUp(message)
 {
-    console.log(error);
-    var show;
-    if(!isError(error)){
-        document.getElementById('submit').removeEventListener('click', getFormData);
-        show = error['info'];
-    } else {
-        show = error['error'];
-    }
+    var show = getMessage(message);
+    var popUp = document.getElementById('pop-up');
+    popUp.style.display = 'block';
+    document.getElementById('info-error').innerHTML = show;
+}
 
-    alert(show);
+function getMessage(message)
+{
+    if(!isError(message)){
+        document.getElementById('submit').removeEventListener('click', getFormData);
+        document.getElementById('submit').style.cursor = 'default';
+        return message['info'];
+    }
+    
+    return message['error'];
 }
 
 function isError(error)
 {
     if(('error' in error)) return true;
     return false;
+}
+
+function closePopUp()
+{
+    var popUp = document.getElementById('pop-up');
+    popUp.style.display = 'none';
 }

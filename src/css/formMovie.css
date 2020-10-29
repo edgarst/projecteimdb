@@ -12,7 +12,8 @@ body{
     width: 75%;
     padding: 30px;
     margin: auto;
-    margin-top: 80px;
+    margin-top: 50px;
+    margin-bottom: 40px;
     border-radius: 4px;
     font-family: 'calibri';
     box-shadow: 7px 13px 37px #000;
@@ -117,6 +118,10 @@ body{
     position: absolute;
 }
 
+#info-btn, #info-director{
+    cursor: default;
+}
+
 #info-btn:hover + #actors-info{
     display: block;
 }
@@ -132,4 +137,43 @@ body{
 
 .platform-options{
     color: black;
+}
+
+textarea{
+    resize: none;
+}
+
+#pop-up{
+    display: none;
+    overflow: auto;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    padding-top: 100px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#close{
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+    color: grey;
+    margin-top: -15px;
+}
+
+.pop-up-content{
+    margin: auto;
+    padding: 25px;
+    top: 50%;
+    left: 50%;
+    width: 40%;
+    height: 20%;
+    background-color: white;
+}
+
+#info-error{
+    width: 90%;
 }

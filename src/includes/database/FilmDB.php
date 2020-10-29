@@ -24,7 +24,14 @@ class FilmDB
         return json_encode($result);
     }
 
-    function insertFilm(): void
+    function deleteFilm(): void
+    {
+        $idFilm = $this->getFilmID($this->film->getTitle());
+        $stmt = $this->connexio->prepare('DELETE FROM pelicula WHERE id LIKE ?');
+        $stmt->execute([$idFilm]);
+    }
+
+    function insertFilm(): String
     {
         $platformDB = new PLATFORM();
         $platform = $platformDB->getPlatformID($this->film->getPlatform());
@@ -32,9 +39,14 @@ class FilmDB
 
         $insert = $this->connect->prepare('INSERT INTO pelicula(titol, sinopsis, valoracio, publicacio, plataforma, caratula)
         VALUES (?,?,?,?,?,?)');
+        
+        try {
+            $insert->execute([$this->film->getTitle(), $this->film->getSinopsis(), $this->film->getRating(), $release, $platform, $this->film->getImg()]);
+        } catch (\Exception $e) {
+            return 'Error inserting film to database. Check if the filename is too long, try again later or if the problem persist contact with an administrator.';
+        }
 
-        $insert->execute([$this->film->getTitle(), $this->film->getSinopsis(), $this->film->getRating()
-        , $release, $platform, $this->film->getImg()]);
+        return '1'; // 1 = okey
     }
 
     function getFilms(): String
@@ -120,6 +132,7 @@ class FilmDB
         $genreID = json_decode($genreDB->getGenreID($genre), true);
         $films = json_decode($genreDB->getFilmID($genreID[0]['id']), true);
         $filmsID = implode(',', $this->fetchPersons($films, 'pelicula'));
+
         try{
             $sql = $this->connect->prepare("SELECT titol FROM pelicula WHERE id IN ({$filmsID})");
             $sql->execute([]);
