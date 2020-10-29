@@ -17,22 +17,66 @@ class FormInsert
 
     function insertForm(): Array
     {
-        $check = $this->insertImage();
-        if($check!=='1'){ // true = (String) 1
-            return $false = [
-                'error' => $check,
-            ];
-        }
+        $check = $this->checkFormFields(); // Check error when upload images or if film already exists
+        if($this->checkError($check)) return $this->error($check);
 
-        $check = 'Film inserted successful';
+        $this->createFilm();
 
-        $this->insertMovie();
-        $this->insertGenres($this->form['genres']);
-        $this->insertPersons($this->form['directors'], 'director');
-        $this->insertPersons($this->form['actors'], 'actor');
+        $check = $this->insertMovie(); // Check errors when inserting movie
+        if($this->checkError($check)) return $this->error($check);
+
+        $this->insertGenres($this->form['genres']); // Not validated because it's checkbox and values are added by programmer
+        
+        if(isset($this->form['directors'])) $this->insertPersons($this->form['directors'], 'director');
+        
+        if(isset($this->form['actors'])) $this->insertPersons($this->form['actors'], 'actor');
 
         return $true = [
-            'info' => $check,
+            'info' => 'Film inserted successful',
+        ];
+    }
+
+    private function createFilm(): void
+    {
+        $img = $this->image->getFileUrl();
+        $this->film = new FILM($this->form['title'], $this->form['sinopsis'], $this->form['release'], 
+            $this->form['rating'], $this->form['platform'], $img);
+        
+        $this->filmDB = new FILMDB($this->film);
+    }
+
+    private function checkFormFields(): String
+    {
+        $check = $this->insertImage(); // Check errors when insert image
+        if($this->checkError($check)) return $this->error($check);
+        
+        if($this->filmExists()) return 'This film is already in database';
+
+        return true;
+    }
+
+    private function filmExists(): bool
+    {
+        $checkFilm = new FILMDB();
+        $result = $checkFilm->getFilmID($this->form['title']);
+        $result = json_decode($result);
+        if(!empty($result)) return true;
+
+        return false;
+    }
+
+    private function checkError(String $check): bool
+    {
+        // true = (String) '1'
+        if($check!=='1') return true;
+        
+        return false;
+    }
+
+    private function error(String $check): Array
+    {
+        return $false = [
+            'error' => $check,
         ];
     }
 
@@ -49,15 +93,13 @@ class FormInsert
         return $this->image->uploadImage();
     }
 
-    private function insertMovie(): void
+    private function insertMovie(): String
     {
-        $img = $this->image->getFileUrl();
-        $this->film = new FILM($this->form['title'], $this->form['sinopsis'], $this->form['release'], 
-            $this->form['rating'], $this->form['platform'], $img);
+        $check = $this->filmDB->insertFilm();
+        if($this->checkError($check)) return $check; // if there is an error
         
-        $this->filmDB = new FILMDB($this->film);
-        $this->filmDB->insertFilm();
         $this->setFilmID($this->filmDB->getFilmID($this->form['title']));
+        return $check;
     }
 
     private function insertGenres(String $genres): void
