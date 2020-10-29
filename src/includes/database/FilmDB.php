@@ -143,5 +143,26 @@ class FilmDB
             return "ERROR: {$e->getMessage()}";
         }
     }
+
+    function getFilmsByPlatform(String $platform): String
+    {
+        $platformDB = new PLATFORM();
+        $platformId = $platformDB->getPlatformId($platform);
+        
+        $sql = $this->connect->prepare('SELECT * FROM pelicula WHERE plataforma = ?');
+        $sql->execute([$platformId]);
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+        
+        return json_encode($result);
+    }
+
+    function getAllReleases()
+    {
+        $sql = $this->connect->prepare('SELECT DISTINCT publicacio FROM pelicula ORDER BY publicacio ASC');
+        $sql->execute([]);
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+        
+        return json_encode($result);
+    }
 }
 ?>
