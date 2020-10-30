@@ -64,11 +64,19 @@ if (isset($_GET['genre'])) {
 
 }
 
+// Insert Form Data
 if(isset($_GET['insertForm'])){
     $form = $_POST;
     $formInsert = new FORM($form);
     $error = $formInsert->insertForm();
     echo json_encode($error);
+}
+
+// Filter
+if (isset($_GET['filter'])) {
+    $filter = json_decode($_GET['filter'], true);
+    $movie = new FILMDB();
+    echo $movie->getFilmsByFilter($filter);
 }
 
 ?>

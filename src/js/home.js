@@ -108,26 +108,46 @@ function appendTo(input, parentId)
     div.appendChild(input);
 }
 
-function createFormData(formInputs)
+function applyFilter()
 {
-    var formData = new FormData();
-    for (let index = 0; index < formInputs.length; index++) {
-        formData.append(formInputs[index].name, formInputs[index].value);
-    }
+    var formData = {};
+    formData = addPlatform(formData);
+    formData = addCheckbox(formData, 'genres');
+    formData = addCheckbox(formData, 'releases');
+
+    sendData(JSON.stringify(formData));
+}
+
+function addPlatform(formData)
+{
+    var platform = document.querySelector('input[name="platforms"]:checked');
+    if(platform !== null) formData['platform'] = platform.value;
+
     return formData;
 }
 
-function applyFilter()
+function addCheckbox(formData, name)
 {
-    var formData = createFormData(formInputs);
+    var values = document.querySelectorAll('input[name="'+name+'"]:checked');
+    var arrValues = [];
+
+    for (let index = 0; index < values.length; index++) {
+        arrValues.push(values[index].value);
+    }
+
+    formData[name] = arrValues;
+
+    return formData;
 }
 
 function sendData(formData)
 {
-    fetch('http://imdbcutre.test/information.php?filter', {
-        method: 'GET',
-        body: formData,
-    }).then(function(response){ return response.json() })
-    .then(function(message){ showPopUp(message) });
-}
+    var request = new XMLHttpRequest();
+    request.onload = function() {
+        response = JSON.parse(request.responseText);
+        viewFilms(response);
+    };
 
+    request.open('get', 'http://imdbcutre.test/information.php?filter='+formData);
+    request.send();
+}

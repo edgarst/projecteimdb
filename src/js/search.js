@@ -1,7 +1,7 @@
 function viewFilms(json)
 { 
-   deleteClass('row');
-   setFilmText(json);
+    deleteClass('row');
+    setFilmText(json);
 }
 
 function setFilmText(json)
