@@ -11,3 +11,4 @@ vendor/*
 vendor/composer/*
 
 src/content/img/*
+phpunit/*
