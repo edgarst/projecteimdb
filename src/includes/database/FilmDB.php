@@ -128,10 +128,7 @@ class FilmDB
 
     function getFilmsByGenre(Array $genre): String
     {
-        $genreDB = new GENRE();
-        $genreID = $this->filterByGenre($genre);
-        $films = json_decode($genreDB->getFilmID($genreID), true);
-        $filmsID = implode(', ', $this->createArray($films, 'pelicula'));
+        $filmsID = $this->filmsIdByGenre($genre);
 
         try{
             $sql = $this->connect->prepare("SELECT * FROM pelicula WHERE id IN ({$filmsID})");
@@ -142,6 +139,16 @@ class FilmDB
         }catch(PDOException $e){
             return "ERROR: {$e->getMessage()}";
         }
+    }
+
+    private function filmsIdByGenre(Array $genre): String
+    {
+        $genreDB = new GENRE();
+        $genreID = $this->filterByGenre($genre);
+        $films = json_decode($genreDB->getFilmID($genreID), true);
+        $filmsID = implode(', ', $this->createArray($films, 'pelicula'));
+        
+        return $filmsID;
     }
 
     private function filterByGenre(Array $genres): String
@@ -157,12 +164,30 @@ class FilmDB
         return $genresID;
     }
 
-    function getFilmsByPlatform(String $platform): String
+    private function platformId(String $platform): int
     {
         $platformDB = new PLATFORM();
-        $platformId = $platformDB->getPlatformId($platform);
+
+        return $platformDB->getPlatformId($platform);
+    }
+
+    function getFilmsByPlatform(String $platform): String
+    {
+        $platformId = $this->platformId($platform);
         
         $sql = $this->connect->prepare('SELECT * FROM pelicula WHERE plataforma = ?');
+        $sql->execute([$platformId]);
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+        
+        return json_encode($result);
+    }
+
+    function getFilmsByPlatformAndGenre(String $platform, Array $genres): String
+    {
+        $filmsID = $this->filmsIdByGenre($genres);
+        $platformId = $this->platformId($platform);
+        
+        $sql = $this->connect->prepare("SELECT * FROM pelicula WHERE plataforma = ? AND id IN ({$filmsID})");
         $sql->execute([$platformId]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         
@@ -174,6 +199,30 @@ class FilmDB
         $release = $this->releaseString($releases);
         $sql = $this->connect->prepare("SELECT * FROM pelicula WHERE publicacio IN ({$release})");
         $sql->execute([]);
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($result);
+    }
+
+    function getFilmsByReleaseAndGenre(Array $releases, Array $genres): String
+    {
+        $filmsID = $this->filmsIdByGenre($genres);
+        $release = $this->releaseString($releases);
+
+        $sql = $this->connect->prepare("SELECT * FROM pelicula WHERE publicacio IN ({$release}) AND id IN ({$filmsID})");
+        $sql->execute([]);
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($result);
+    }
+
+    function getFilmsByReleaseAndPlatform(Array $releases, String $platform): String
+    {
+        $release = $this->releaseString($releases);
+        $platformId = $this->platformId($platform);
+        
+        $sql = $this->connect->prepare("SELECT * FROM pelicula WHERE publicacio IN ({$release}) AND plataforma = ?");
+        $sql->execute([$platformId]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         return json_encode($result);
@@ -199,14 +248,39 @@ class FilmDB
         return json_encode($result);
     }
 
+    function getFilmsByAllFilter(String $platform, Array $genres, Array $releases): String
+    {
+        $release = $this->releaseString($releases);
+        $platformId = $this->platformId($platform);
+        $filmsID = $this->filmsIdByGenre($genres);
+        
+        $sql = $this->connect->prepare("SELECT * FROM pelicula WHERE publicacio IN ({$release}) AND id IN ({$filmsID}) AND plataforma = ?");
+        $sql->execute([$platformId]);
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($result);
+    }
+
     function getFilmsByFilter(Array $filter)
     {
         $option = $this->filtersSet($filter);
         if($option === 1) return $this->getFilmsByPlatform($filter['platform']);
         if($option === 2) return $this->getFilmsByGenre($filter['genres']);
         if($option === 3) return $this->getFilmsByRelease($filter['releases']);
-        
+        if($option === 4) return $this->getFilmsByPlatformAndGenre($filter['platform'], $filter['genres']);
+        if($option === 5) return $this->getFilmsByReleaseAndGenre($filter['releases'], $filter['genres']);
+        if($option === 6) return $this->getFilmsByReleaseAndPlatform($filter['releases'], $filter['platform']);
+        return $this->getFilmsByAllFilter($filter['platform'], $filter['genres'], $filter['releases']);
     }
+    /* 
+        1 = Only platform
+        2 = Only genre
+        3 = Only release
+        4 = Platform && genre
+        5 = Genre && release
+        6 = Platform && release
+        7 = All set
+    */
 
     private function filtersSet(Array $filter): int
     {
@@ -240,15 +314,6 @@ class FilmDB
         
         return 0;
     }
-    /* 
-        1 = Only platform
-        2 = Only genre
-        3 = Only release
-        4 = Platform && genre
-        5 = Genre && release
-        6 = Platform && release
-        7 = All set
-    */
 
     private function platformSet(Array $filter): bool
     {
