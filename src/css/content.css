@@ -30,3 +30,43 @@
 body{
     background-color: grey;
 }
+
+/* Info Film */
+#pop-up{
+    /* display: none; */
+    overflow: auto;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    padding-top: 30px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#close{
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+    color: grey;
+    margin-top: -15px;
+}
+
+.pop-up-content{
+    margin: auto;
+    padding: 25px;
+    top: 50%;
+    left: 50%;
+    width: 40%;
+    height: 90%;
+    background-color: white;
+}
+
+#title{
+    width: 90%;
+}
+
+.info-movie, .pop-up-content img{
+    display: inline-block;
+}

@@ -12,6 +12,7 @@ function addEvents()
 {
     document.getElementById('apply-filter').addEventListener('click', applyFilter);
     document.getElementById('search-btn').addEventListener('click', showMovies);
+    document.querySelectorAll('.link-movie').forEach(item=>{item.addEventListener('click', showInfo)})
 }
 
 function showMovies()
@@ -23,6 +24,10 @@ function showMovies()
     .then(function(json){ viewFilms(json); });
 }
 
+function showInfo()
+{
+    
+}
 
 // Filter
 function createFilter()

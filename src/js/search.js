@@ -56,6 +56,7 @@ function createTitle(title)
 function createLink(id)
 {
     var link = document.createElement('a');
+    link.className = 'link-movie';
     link.href = 'http://imdbcutre.test/information.php?id='+id;
     return link;
 }
