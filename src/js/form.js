@@ -19,7 +19,7 @@ function createEvents()
     document.getElementById('close').addEventListener('click', closePopUp);
 }
 
-    // Generate inputs (genre, platform, director)
+    // Generate inputs (genre, platform)
 function setPlatforms(json)
 {
     for (const platform of json) {
@@ -60,8 +60,7 @@ function createPlatformOption(platformName)
 {
     var option = document.createElement('option');
     option.className = 'platform-options'
-    option.value = platformName;
-    option.innerHTML = platformName;
+    option.value = option.innerHTML = platformName;
     return option;
 }
 

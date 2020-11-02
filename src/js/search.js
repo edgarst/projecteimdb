@@ -1,7 +1,7 @@
 function viewFilms(json)
 { 
-   deleteClass('row');
-   setFilmText(json);
+    deleteClass('row');
+    setFilmText(json);
 }
 
 function setFilmText(json)
@@ -12,7 +12,7 @@ function setFilmText(json)
         var img = createImg(film['caratula']);
         var divText = createDivTitle();
         var text = createTitle(film['titol']);
-        var link = createTitleLink(film['titol']);
+        var link = createLink(film['id']);
         appendFilm(link, text, divText, col, img, row);
     }
 }
@@ -53,10 +53,10 @@ function createTitle(title)
     return text;
 }
 
-function createTitleLink(title)
+function createLink(id)
 {
     var link = document.createElement('a');
-    link.href = 'http://imdbcutre.test/information.php?title='+title;
+    link.href = 'http://imdbcutre.test/information.php?id='+id;
     return link;
 }
 
