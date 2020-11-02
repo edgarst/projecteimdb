@@ -1,5 +1,5 @@
 <?php 
-$version = 'v2.5.1';
+$version = 'v2.6.1';
 require 'vendor/autoload.php';
 header('Content-Type: application/json');
 
