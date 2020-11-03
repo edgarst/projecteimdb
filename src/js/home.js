@@ -2,7 +2,8 @@ window.onload = function()
 {
     var url = 'http://imdbcutre.test/information.php?home';
     fetch(url).then(function(response){ return response.json(); })
-    .then(function(json){ viewFilms(json); });
+    .then(function(json){ viewFilms(json);})
+    .then(function(){addLinkEvent();});
     
     createFilter();
     addEvents();
@@ -23,8 +24,7 @@ function addEvents()
     document.getElementById('apply-filter').addEventListener('click', applyFilter);
     document.getElementById('search-btn').addEventListener('click', showMovies);
     document.getElementById('afegir-pelis').addEventListener('click', showForm);
-    // document.getElementById('close').addEventListener('click', closeInfo);
-    // document.addEventListener('DOMContentLoaded', addEvent);
+    document.getElementById('close-film').addEventListener('click', closeInfo);
 }
 
 function showMovies()
@@ -36,21 +36,21 @@ function showMovies()
     .then(function(json){ viewFilms(json); });
 }
 
-function addEvent()
+function addLinkEvent()
 {
     var links = document.getElementsByClassName('text-img');
     for (const value of links) {
-        value.addEventListener('click', getInfo(value));
+        value.addEventListener('click', getInfo);
     }
 }
 
-function getInfo(link)
+function getInfo()
 {
-    document.getElementById('pop-up').style.display = 'block';
-    var url = 'http://imdbcutre.test/information.php?id='+link.id;
+    document.getElementById('modal-movie').style.display = 'block';
+    // var url = 'http://imdbcutre.test/information.php?id='+link.id;
 
-    fetch(url).then(function(response){ return response.json(); })
-    .then(function(json){ showInfo(json); });
+    // fetch(url).then(function(response){ return response.json(); })
+    // .then(function(json){ showInfo(json); });
 }
 
 function showInfo(film)
@@ -69,7 +69,7 @@ function showInfo(film)
 
 function closeInfo()
 {
-    var popUp = document.getElementById('pop-up');
+    var popUp = document.getElementById('modal-movie');
     popUp.style.display = 'none';
 }
 
