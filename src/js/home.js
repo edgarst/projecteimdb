@@ -6,13 +6,25 @@ window.onload = function()
     
     createFilter();
     addEvents();
+
+    var platforms = 'http://imdbcutre.test/information.php?platforms';
+    fetch(platforms).then(function(response){ return response.json(); })
+    .then(function(json){ setPlatforms(json); });
+
+    var genres = 'http://imdbcutre.test/information.php?genres';
+    fetch(genres).then(function(response){ return response.json(); })
+    .then(function(genre){ setGenres(genre); });
+    
+    createEvents();
 }
 
 function addEvents()
 {
     document.getElementById('apply-filter').addEventListener('click', applyFilter);
     document.getElementById('search-btn').addEventListener('click', showMovies);
-    document.querySelectorAll('.link-movie').forEach(item=>{item.addEventListener('click', showInfo)})
+    document.getElementById('afegir-pelis').addEventListener('click', showForm);
+    // document.getElementById('close').addEventListener('click', closeInfo);
+    // document.addEventListener('DOMContentLoaded', addEvent);
 }
 
 function showMovies()
@@ -24,9 +36,41 @@ function showMovies()
     .then(function(json){ viewFilms(json); });
 }
 
-function showInfo()
+function addEvent()
 {
-    
+    var links = document.getElementsByClassName('text-img');
+    for (const value of links) {
+        value.addEventListener('click', getInfo(value));
+    }
+}
+
+function getInfo(link)
+{
+    document.getElementById('pop-up').style.display = 'block';
+    var url = 'http://imdbcutre.test/information.php?id='+link.id;
+
+    fetch(url).then(function(response){ return response.json(); })
+    .then(function(json){ showInfo(json); });
+}
+
+function showInfo(film)
+{
+    document.getElementById('title').innerHTML = film['titol'];
+    document.getElementById('sinopsis').innerHTML = film['sinopsis'];
+    document.getElementById('actors').innerHTML = film['actors'];
+
+    document.getElementById('directors').innerHTML = film['directors'];
+    document.getElementById('genre').innerHTML = film['genere'];
+    document.getElementById('platform').innerHTML = film['plataforma'];
+
+    document.getElementById('img-film').src = film['caratula'];
+    document.getElementById('img-film').alt = film['titol'];
+}
+
+function closeInfo()
+{
+    var popUp = document.getElementById('pop-up');
+    popUp.style.display = 'none';
 }
 
 // Filter
@@ -64,8 +108,8 @@ function viewPlatforms(json)
     for (const platform of json) {
         input = createInput('radio', platform['nom'], platform['nom'], 'platforms');
         label = createLabel(platform['nom']);
-        appendTo(input, 'platform');
-        appendTo(label, 'platform');
+        appendTo(input, 'plataforma');
+        appendTo(label, 'plataforma');
     }
 }
 
@@ -74,8 +118,8 @@ function viewGenres(json)
     for (const genres of json) {
         var genre = createInput('checkbox', genres['genere'], genres['genere'], 'genres');
         var label = createLabel(genres['genere']);
-        appendTo(genre, 'genres');
-        appendTo(label, 'genres');
+        appendTo(genre, 'generes');
+        appendTo(label, 'generes');
     }
 }
 

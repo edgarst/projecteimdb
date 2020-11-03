@@ -48,6 +48,7 @@ header a, header a:visited{
     padding: 5px;
     margin-left: 10px;
     font-size: 22px;
+    cursor: pointer;
 }
 
 #afegir-pelis:hover{

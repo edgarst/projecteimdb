@@ -1,22 +1,17 @@
     // On load page
 var numDirectors; // Saves directors number
-window.onload = function()
-{
-    var platforms = 'http://imdbcutre.test/information.php?platforms';
-    fetch(platforms).then(function(response){ return response.json(); })
-    .then(function(json){ setPlatforms(json); });
-
-    var genres = 'http://imdbcutre.test/information.php?genres';
-    fetch(genres).then(function(response){ return response.json(); })
-    .then(function(genre){ setGenres(genre); });
-    
-    createEvents();
-}
 
 function createEvents()
 {
     document.getElementById('submit').addEventListener('click', getFormData);
     document.getElementById('close').addEventListener('click', closePopUp);
+
+    var form = document.getElementById('modal-form');
+    window.onclick = function(event) {
+        if (event.target == form) {
+          form.style.display = "none";
+        }
+    }
 }
 
     // Generate inputs (genre, platform)
@@ -213,4 +208,10 @@ function closePopUp()
 {
     var popUp = document.getElementById('pop-up');
     popUp.style.display = 'none';
+}
+
+function showForm()
+{
+    var form = document.getElementById('modal-form');
+    form.style.display = 'block';
 }

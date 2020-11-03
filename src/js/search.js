@@ -11,9 +11,8 @@ function setFilmText(json)
         var col = createCol();
         var img = createImg(film['caratula']);
         var divText = createDivTitle();
-        var text = createTitle(film['titol']);
-        var link = createLink(film['id']);
-        appendFilm(link, text, divText, col, img, row);
+        var text = createTitle(film['id'], film['titol']);
+        appendFilm(text, divText, col, img, row);
     }
 }
 
@@ -46,24 +45,16 @@ function createDivTitle()
     return divText;
 }
 
-function createTitle(title)
+function createTitle(id, title)
 {
     var text = document.createElement('h4');
     text.innerHTML = title;
+    text.id = id;
     return text;
 }
 
-function createLink(id)
-{
-    var link = document.createElement('a');
-    link.className = 'link-movie';
-    link.href = 'http://imdbcutre.test/information.php?id='+id;
-    return link;
-}
-
-function appendFilm(link, text, divText, col, img, row) {
-    link.appendChild(text);
-    divText.appendChild(link);
+function appendFilm(text, divText, col, img, row) {
+    divText.appendChild(text);
     col.appendChild(img);
     col.appendChild(divText);
     row.appendChild(col);
