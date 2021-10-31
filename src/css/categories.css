@@ -1,0 +1,12 @@
+.c-categories {
+    position: fixed;
+    right: 0;
+    background-color: #2d2d2d;
+    height: 100%;
+    color: white;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
