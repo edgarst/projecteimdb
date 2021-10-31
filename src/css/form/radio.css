@@ -1,0 +1,11 @@
+.c-radio {
+    width: 17px;
+    height: 17px;
+    background: white;
+    border: 1px solid #2d2d2d;
+    margin-right: 6px;
+}
+
+.c-radio:checked {
+    border: 6px solid #2d2d2d;
+}
