@@ -1,0 +1,7 @@
+.c-form--title {
+    margin-bottom: 20px;
+}
+
+.c-form--element + .c-form--element {
+    margin-top: 20px;
+}
