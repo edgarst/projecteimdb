@@ -1,0 +1,19 @@
+.c-slider {
+    overflow-x: scroll;
+
+    width: 400px;
+    display: inline-flex;
+    gap: 20px;
+    /* padding-top: 2rem; */
+    margin-left: 2rem;
+    position: absolute;
+    bottom: 2rem;
+}
+
+.c-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.c-slider__item {
+    max-width: 150px;
+}
