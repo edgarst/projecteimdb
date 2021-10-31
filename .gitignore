@@ -10,5 +10,5 @@
 vendor/*
 vendor/composer/*
 
-src/content/img/*
+#src/content/img/*
 phpunit/*
