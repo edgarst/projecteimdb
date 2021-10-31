@@ -1,6 +1,6 @@
 .filter{
     float: left;
-    width: 20%;
+    width: 80%;
     height: 100%;
     background-color: #303030;
     margin-right: 20px;
@@ -37,4 +37,10 @@
     font-weight: bold;
     border-radius: 5px;
     border: 2px solid black;
+}
+
+@media screen and (min-width: 1200px) {
+    .filter {
+        width: 20%;
+    }
 }

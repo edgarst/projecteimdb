@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="src/css/header.css">
     <link rel="stylesheet" href="src/css/content.css">
     <link rel="stylesheet" href="src/css/filter.css">
+    <link rel="stylesheet" href="src/css/form/input.css">
+    <link rel="stylesheet" href="src/css/form/element.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="src/js/home.js"></script>
 </head>
@@ -20,22 +22,25 @@
     </header>
     <script src="src/js/search.js"></script>
     
-    <div class="filter">
-        <h1 class="filter-title">Filtre:</h1>
+    <div class="filter c-form">
+        <h1 class="filter-title c-form--title">Filtre:</h1>
         <form method="get">
-            <div class="filter-fields" id="platform">
-                <p>Plataforma:</p>
+            <div class="filter-fields c-form--element" id="platform">
+                <label for="platform">Plataforma:</label>
+                <input class="c-input" type="text" id="platform" name="platform">
             </div>
 
-            <div class="filter-fields" id="genres">
-                <p>Gènere:</p>
+            <div class="filter-fields c-form--element" id="genres">
+                <label for="genre">Gènere:</label>
+                <input class="c-input" type="text" id="genre" name="genre">
             </div>
 
-            <div class="filter-fields" id="release">
-                <p>Any:</p>
+            <div class="filter-fields c-form--element" id="release">
+                <label for="year">Any:</label>
+                <input class="c-input" type="number" min="2000" max="2021" id="year" name="year">
             </div>
 
-            <div class="filter-fields">
+            <div class="filter-fields c-form--element">
                 <button id="apply-filter" type="button">Aplicar filtre</button>
             </div>
         </form>
